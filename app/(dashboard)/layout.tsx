@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import DesktopSidebar from "@/components/dashboard/DesktopSidebar";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileNavbar from "@/components/dashboard/MobileNavbar";
 import Loader from "@/components/Common/Loader";
+import QueryProvider from "@/lib/QueryProvider";
+import { IsAuth } from "@/lib/auth/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,18 +24,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <section className=" dashboard-container ">
-        <DesktopSidebar />
-        <div>
-          <DashboardNav />
-          <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
-            <Suspense fallback={<Loader />}>
-              {children}
-            </Suspense>
-          </main>
-        </div>
-        <MobileNavbar />
-      </section>
+        <QueryProvider>
+          <IsAuth>
+            <section className=" dashboard-container ">
+              <DesktopSidebar />
+              <div>
+                <DashboardNav />
+                <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
+                  <Suspense fallback={<Loader />}>{children}</Suspense>
+                </main>
+              </div>
+              <MobileNavbar />
+            </section>
+          </IsAuth>
+        </QueryProvider>
       </body>
     </html>
   );

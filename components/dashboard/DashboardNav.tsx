@@ -1,11 +1,21 @@
-'use client'
-import { ChevronDown, SearchIcon } from 'lucide-react';
-import { Input } from '../ui/input';
-import DashboardMenu from './DashboardMenu';
-import { useState, useEffect, useRef } from 'react';
+"use client";
+import { ChevronDown, SearchIcon } from "lucide-react";
+import { Input } from "../ui/input";
+import DashboardMenu from "./DashboardMenu";
+import { useState, useEffect, useRef } from "react";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import useToken from "@/lib/auth/useToken";
+
+type UserData = {
+  user: {
+    avatarUrl: string;
+  };
+};
+
 export default function DashboardNav() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const menuRef = useRef<HTMLElement>(null);
+
   const handleMenu = () => {
     setIsOpen((c) => !c);
   };
@@ -16,11 +26,18 @@ export default function DashboardNav() {
         setIsOpen(true);
       }
     };
-    document.addEventListener('click', handler);
+    document.addEventListener("click", handler);
     return () => {
-      document.removeEventListener('click', handler);
+      document.removeEventListener("click", handler);
     };
   }, []);
+
+  const { data: datas }: UseQueryResult<UserData, Error> = useQuery({
+    queryKey: ["userdata"],
+    queryFn: async () => {
+      return useToken();
+    },
+  });
 
   return (
     <header className="sticky top-0 z-10 bg-white" ref={menuRef}>
@@ -42,9 +59,9 @@ export default function DashboardNav() {
             onClick={handleMenu}
           >
             <img
-              src="../profile.svg"
+              src={`${datas?.user.avatarUrl}`}
               alt="profile-picture"
-              className="w-8 md:w-10"
+              className="w-8 md:w-10 border rounded-full"
             />
             <div className=" absolute bottom-0 left-4 z-50 flex h-3 w-3 items-center justify-center rounded-full  border-2 border-custom-textGray bg-custom-black text-white md:left-6 md:h-4 md:w-4">
               <ChevronDown />
@@ -52,7 +69,7 @@ export default function DashboardNav() {
           </div>
         </div>
         <div
-          className={`absolute right-0 top-16 w-[270px] space-y-4 rounded-md bg-white p-4 pb-6 shadow-2xl duration-300 ${isOpen ? 'invisible opacity-0' : 'visible opacity-100'}`}
+          className={`absolute right-0 top-16 w-[270px] space-y-4 rounded-md bg-white p-4 pb-6 shadow-2xl duration-300 ${isOpen ? "invisible opacity-0" : "visible opacity-100"}`}
         >
           <DashboardMenu />
         </div>
