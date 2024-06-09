@@ -17,15 +17,16 @@ import {
 import { Input } from "@/components/ui/input"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
-import { styles } from "@/redux/features/stylesSlice"
+import { changeNameColor, styles } from "@/redux/features/stylesSlice"
 import { changeColor, changeBgColor } from "@/redux/features/stylesSlice"
 const formSchema = z.object({
   fontColor: z.string(),
   bgColor: z.string(),
+  nameColor: z.string()
 })
 
 const StylesForm = () => {
-  const {color, bgColor} = useSelector((state:RootState) => state.styles)
+  const {color, bgColor, nameColor} = useSelector((state:RootState) => state.styles)
   const dispatch = useDispatch<AppDispatch>()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -33,6 +34,7 @@ const StylesForm = () => {
     defaultValues: {
       fontColor: color,
       bgColor: bgColor,
+      nameColor: nameColor
     },
   })
 
@@ -43,7 +45,26 @@ const StylesForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="nameColor"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Display Name Color</FormLabel>
+              <FormControl>
+                <Input {...field}
+                  type="color"
+                  className="p-0"
+                  value={nameColor}
+                  onChange={(e) => dispatch(changeNameColor(e.target.value))}
+                />
+              </FormControl>
+              
+              <FormMessage />
+            </FormItem>
+          )}
+        /> 
         <FormField
           control={form.control}
           name="fontColor"

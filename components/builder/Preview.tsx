@@ -9,7 +9,7 @@ import {
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 const Preview = () => {
-  const {color, bgColor} = useSelector((state:RootState) => state.styles)
+  const {color, bgColor, nameColor} = useSelector((state:RootState) => state.styles)
   return (
     <div className='w-full flex flex-col justify-start items-center'>
       <div className='relative'>
@@ -36,10 +36,14 @@ const Preview = () => {
             </div>
             {/* Profile Info */}
             <div className="text-center mt-10"
-              style={{color: color}}
+              
             >
-              <h4>Tony Stark</h4>
-              <div className='px-3'>
+              <h4
+                style={{color: nameColor}}
+              >Tony Stark</h4>
+              <div className='px-3'
+                style={{color: color}}
+              >
                 <p className='text-[0.8em] leading-[1.1rem]'>Software Engineer</p>
                 <p className='text-[0.8em] leading-[1.1rem]'>Stark Industries</p>
                 <p className='text-[0.8em] leading-[1.1rem]'>Forrest Ray 191-103 Integer Rd. Corona New Mexico</p>
