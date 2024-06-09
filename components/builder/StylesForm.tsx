@@ -15,19 +15,24 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/redux/store"
+import { styles } from "@/redux/features/stylesSlice"
+import { changeColor, changeBgColor } from "@/redux/features/stylesSlice"
 const formSchema = z.object({
   fontColor: z.string(),
   bgColor: z.string(),
 })
 
 const StylesForm = () => {
-  
+  const {color, bgColor} = useSelector((state:RootState) => state.styles)
+  const dispatch = useDispatch<AppDispatch>()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fontColor: "#000000",
-      bgColor: "#ffffff",
+      fontColor: color,
+      bgColor: bgColor,
     },
   })
 
@@ -49,7 +54,8 @@ const StylesForm = () => {
                 <Input {...field}
                   type="color"
                   className="p-0"
-                  
+                  value={color}
+                  onChange={(e) => dispatch(changeColor(e.target.value))}
                 />
               </FormControl>
               
@@ -67,6 +73,8 @@ const StylesForm = () => {
                 <Input {...field}
                   type="color"
                   className="p-0"
+                  value={bgColor}
+                  onChange={(e) => dispatch(changeBgColor(e.target.value))}
                 />
               </FormControl>
               

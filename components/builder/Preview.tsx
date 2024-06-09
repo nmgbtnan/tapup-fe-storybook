@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import React from 'react'
 import {
@@ -5,7 +6,10 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 const Preview = () => {
+  const {color, bgColor} = useSelector((state:RootState) => state.styles)
   return (
     <div className='w-full flex flex-col justify-start items-center'>
       <div className='relative'>
@@ -16,7 +20,9 @@ const Preview = () => {
           src='/phone.webp'
           />
         <div className={`absolute top-0 left-0 w-full h-full bg-transparent`}>
-          <div className={`bg-white mt-10 ms-[19px] me-[14px] mb-32 rounded-xl h-[550px]`}>
+          <div className={`mt-10 ms-[18px] me-[13px] mb-32 rounded-xl rounded-b-[39px] h-[552px] `}
+            style={{backgroundColor: bgColor}}
+          >
             {/* Cover photo */}
             <div className="bg-gray-300 w-full h-28 rounded-t-md">
 
@@ -30,12 +36,14 @@ const Preview = () => {
             </div>
             {/* Profile Info */}
             <div className="text-center mt-10"
-              style={{color: 'black'}}
+              style={{color: color}}
             >
               <h4>Tony Stark</h4>
-              <p>Software Engineer</p>
-              <p>Stark Industries</p>
-              <p>Forrest Ray 191-103 Integer Rd. Corona New Mexico</p>
+              <div className='px-3'>
+                <p className='text-[0.8em] leading-[1.1rem]'>Software Engineer</p>
+                <p className='text-[0.8em] leading-[1.1rem]'>Stark Industries</p>
+                <p className='text-[0.8em] leading-[1.1rem]'>Forrest Ray 191-103 Integer Rd. Corona New Mexico</p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,8 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit';
+import styles from './features/stylesSlice';
 
 const store = configureStore({
   reducer: {
-    
+    styles
   },
 })
 
