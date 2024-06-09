@@ -1,4 +1,5 @@
 
+import Preview from '@/components/builder/Preview';
 import Sidebar from '@/components/builder/Sidebar';
 
 export default function Profile() {
@@ -6,7 +7,7 @@ export default function Profile() {
     <section className="w-screen flex flex-row min-h-screen bg-gray-200 p-5">
      
       <Sidebar/>
-      
+      <Preview/>
     </section>
   );
 }

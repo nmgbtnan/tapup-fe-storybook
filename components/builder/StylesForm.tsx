@@ -49,7 +49,7 @@ const StylesForm = () => {
                 <Input {...field}
                   type="color"
                   className="p-0"
-                  onChangeCapture={(e) => console.log(e.target.value)}
+                  
                 />
               </FormControl>
               
