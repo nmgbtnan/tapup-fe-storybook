@@ -1,7 +1,7 @@
 'use client'
 import  { useState } from 'react'
 import { IoChevronForward, IoColorPalette } from 'react-icons/io5'
-import { RiFontSize, RiLayout2Line } from 'react-icons/ri'
+import { RiFontSize, RiLayout2Fill } from 'react-icons/ri'
 import Menutab from './Menutab'
 
 import {
@@ -21,14 +21,13 @@ import { capitalize } from '@/lib/capitalize'
 import { IoMdPerson } from 'react-icons/io'
 import { TbSocial } from "react-icons/tb";
 import { FaTools } from 'react-icons/fa'
-import { Input } from '../ui/input'
 import StylesForm from './StylesForm'
 import { FontForm } from './FontForm'
 
 const tabs = [
   {
     name: 'manage',
-    icon: <RiLayout2Line />,
+    icon: <RiLayout2Fill />,
     menuItems: [
       {
         name: 'profile',
@@ -76,7 +75,7 @@ const Sidebar = () => {
           <TabsContent 
             key={tab.name}
             value={tab.name} 
-            className='p-0 w-[300px] '
+            className='p-0 w-[350px] '
           >
             <Card className='min-h-[300px]'>
               <CardHeader>

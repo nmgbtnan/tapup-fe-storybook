@@ -19,24 +19,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { fontOptions } from "@/lib/fontOptions"
+import { fontOptions, fontSizeOptions } from "@/lib/fontOptions"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
-import { changeNameFontFamily, changeFontFamily } from "@/redux/features/stylesSlice"
+import { changeNameFontFamily, changeFontFamily, changeNameSize, changeInfoSize } from "@/redux/features/stylesSlice"
 
 const FormSchema = z.object({
   name: z.string(),
   info: z.string(),
+  nameSize: z.string(),
+  infoSize: z.string(),
 })
 
 export function FontForm() {
-  const {nameFontFamily, fontFamily} = useSelector((state:RootState) => state.styles)
+  const {nameFontFamily, fontFamily, nameSize, infoSize} = useSelector((state:RootState) => state.styles)
   const dispatch = useDispatch<AppDispatch>()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: nameFontFamily,
       info: fontFamily,
+      nameSize: nameSize,
+      infoSize: infoSize
     }
   })
 
@@ -47,50 +51,100 @@ export function FontForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Display Name</FormLabel>
-              <Select onValueChange={(value)=>dispatch(changeNameFontFamily(value))} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a font style" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {fontOptions.map((option, i) => (
-                    <SelectItem key={i} value={option.font}>{option.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="info"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Infos</FormLabel>
-              <Select onValueChange={(value)=>dispatch(changeFontFamily(value))} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a font style" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {fontOptions.map((option, i) => (
-                    <SelectItem key={i} value={option.font}>{option.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex justify-between gap-3">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-3/4">
+                <FormLabel>Display Name</FormLabel>
+                <Select onValueChange={(value)=>dispatch(changeNameFontFamily(value))} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a font style" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {fontOptions.map((option, i) => (
+                      <SelectItem key={i} value={option.font}>{option.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="nameSize"
+            render={({ field }) => (
+              <FormItem className="w-1/4">
+                <FormLabel>Size</FormLabel>
+                <Select onValueChange={(value)=>dispatch(changeNameSize(value))} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a font style" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {fontSizeOptions.map((option, i) => (
+                      <SelectItem key={i} value={option.size}>{option.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        </div>
+        <div className="flex justify-between gap-3">
+          <FormField
+            control={form.control}
+            name="info"
+            render={({ field }) => (
+              <FormItem className="w-3/4"> 
+                <FormLabel>Infos</FormLabel>
+                <Select onValueChange={(value)=>dispatch(changeFontFamily(value))} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a font style" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {fontOptions.map((option, i) => (
+                      <SelectItem key={i} value={option.font}>{option.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          /> 
+          <FormField
+            control={form.control}
+            name="infoSize"
+            render={({ field }) => (
+              <FormItem className="w-1/4">
+                <FormLabel>Size</FormLabel>
+                <Select onValueChange={(value)=>dispatch(changeInfoSize(value))} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a font style" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {fontSizeOptions.map((option, i) => (
+                      <SelectItem key={i} value={option.size}>{option.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        </div>
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>

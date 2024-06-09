@@ -44,3 +44,44 @@ export const fontOptions = [
     font: 'font-comic-neue',
   },
 ] as const;
+
+
+export const fontSizeOptions = [
+  {
+    name: '12',
+    size: '12px',
+  },
+  {
+    name: '14',
+    size: '14px', 
+  },
+  {
+    name: '16',
+    size: '16px',
+  },
+  {
+    name: '18',
+    size: '18px',
+  },
+  {
+    name: '20',
+    size: '20px',
+  },
+  {
+    name: '22',
+    size: '22px',
+  },
+  {
+    name: '24',
+    size: '24px',
+  },
+  {
+    name: '26',
+    size: '26px',
+  },
+  {
+    name: '28',
+    size: '28px',
+  },
+
+]

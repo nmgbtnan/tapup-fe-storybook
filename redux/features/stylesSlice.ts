@@ -6,6 +6,8 @@ const initialState = {
   nameColor: '#000000',
   nameFontFamily: 'font-roboto-condensed',
   fontFamily: 'font-roboto-condensed',
+  nameSize: '18px',
+  infoSize: '14px',
 } 
 
 export const styles = createSlice({
@@ -28,9 +30,16 @@ export const styles = createSlice({
     },
     changeFontFamily: (state, action: PayloadAction<string>)  => {
       state.fontFamily = action.payload
-    }
+    },
+
+    changeNameSize: (state, action: PayloadAction<string>)  => {
+      state.nameSize = action.payload
+    },
+    changeInfoSize: (state, action: PayloadAction<string>)  => {
+      state.infoSize = action.payload
+    },
   }
 });
 
-export const {changeBgColor, changeColor, changeNameColor, changeFontFamily, changeNameFontFamily} = styles.actions;
+export const {changeBgColor, changeColor, changeNameColor, changeFontFamily, changeNameFontFamily, changeNameSize, changeInfoSize} = styles.actions;
 export default  styles.reducer;
