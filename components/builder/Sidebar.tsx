@@ -23,6 +23,7 @@ import { TbSocial } from "react-icons/tb";
 import { FaTools } from 'react-icons/fa'
 import { Input } from '../ui/input'
 import StylesForm from './StylesForm'
+import { FontForm } from './FontForm'
 
 const tabs = [
   {
@@ -52,6 +53,7 @@ const tabs = [
   {
     name: 'font',
     icon: <RiFontSize />,
+    form: <FontForm />
   },
 ]
 const Sidebar = () => {
