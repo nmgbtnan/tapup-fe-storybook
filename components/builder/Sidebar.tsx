@@ -1,17 +1,53 @@
 'use client'
 import  { useState } from 'react'
-import { IoColorPalette } from 'react-icons/io5'
+import { IoChevronForward, IoColorPalette } from 'react-icons/io5'
 import { RiFontSize, RiLayout2Line } from 'react-icons/ri'
 import Menutab from './Menutab'
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import { capitalize } from '@/lib/capitalize'
+import { IoMdPerson } from 'react-icons/io'
+import { TbSocial } from "react-icons/tb";
+import { FaTools } from 'react-icons/fa'
+import { Input } from '../ui/input'
+import StylesForm from './StylesForm'
 
 const tabs = [
   {
     name: 'manage',
     icon: <RiLayout2Line />,
+    menuItems: [
+      {
+        name: 'profile',
+        icon: <IoMdPerson size={20}/>,
+      },
+      {
+        name: 'socials',
+        icon: <TbSocial size={20}/> 
+      },
+      {
+        name: 'services',
+        icon: <FaTools size={18}/> 
+      },
+      
+    ]
   },
   {
-    name: 'style',
+    name: 'styles',
     icon: <IoColorPalette />,
+    form: <StylesForm />
   },
   {
     name: 'font',
@@ -22,13 +58,47 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('manage')
   return (
     <nav className='mt-10'>
-      <ul>
+      <Tabs defaultValue="manage" className="flex">
+        <TabsList className="flex flex-col min-h-screen justify-start bg-transparent mt-1 me-5">
+          <ul>
+            {tabs.map((tab) => (
+              <li key={tab.name} onClick={() => setActiveTab(tab.name)}>
+                <TabsTrigger value={tab.name} className='p-0 !bg-transparent'>
+                  <Menutab icon={tab.icon} isActive={tab.name === activeTab} />
+                </TabsTrigger>
+              </li>
+            ))}
+          </ul>
+        </TabsList>
         {tabs.map((tab) => (
-          <li key={tab.name} onClick={() => setActiveTab(tab.name)}>
-            <Menutab icon={tab.icon} isActive={tab.name === activeTab} />
-          </li>
+          <TabsContent 
+            key={tab.name}
+            value={tab.name} 
+            className='p-0 w-[300px] '
+          >
+            <Card className='min-h-[300px]'>
+              <CardHeader>
+                <CardTitle>{capitalize(tab.name)}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+               {tab.menuItems?.map((item, i) => (
+                 <div key={i}
+                  className='flex items-center justify-between hover:bg-gray-400 hover:text-white hover:cursor-pointer rounded-md border p-2'
+                 >
+                  <div className="flex items-center gap-2">
+                    {item.icon}
+                    {capitalize(item.name)}
+                  </div>
+                  <IoChevronForward />
+                 </div>
+               ))}
+               {tab.form !== null && tab.form}
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
         ))}
-      </ul>
+      </Tabs>
     </nav>
   )
 }
