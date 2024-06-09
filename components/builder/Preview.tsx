@@ -17,14 +17,25 @@ const Preview = () => {
           />
         <div className={`absolute top-0 left-0 w-full h-full bg-transparent`}>
           <div className={`bg-white mt-10 ms-[19px] me-[14px] mb-32 rounded-xl h-[550px]`}>
+            {/* Cover photo */}
             <div className="bg-gray-300 w-full h-28 rounded-t-md">
 
             </div>
+            {/* Avatar */}
             <div className="flex justify-center relative">
               <Avatar className='absolute top-[-40px] h-20 w-20 border-[3px] border-white '>
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarImage src="https://i.pinimg.com/originals/ef/0d/ec/ef0dec7cb8b80b65ae925ccb9286f567.jpg" alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+              </Avatar>
+            </div>
+            {/* Profile Info */}
+            <div className="text-center mt-10"
+              style={{color: 'black'}}
+            >
+              <h4>Tony Stark</h4>
+              <p>Software Engineer</p>
+              <p>Stark Industries</p>
+              <p>Forrest Ray 191-103 Integer Rd. Corona New Mexico</p>
             </div>
           </div>
         </div>
