@@ -1,5 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
+import { 
+  inter,
+  roboto_condensed,
+  racing_sans_one,
+  league_spartan,
+  roboto_mono,
+  montserrat,
+  open_sans,
+  raleway,
+  bebas_neue,
+  lato,
+  kaushan_script,
+  comic_neue,  
+} from "@/lib/fonts";
 import "../globals.css";
 import DesktopSidebar from "@/components/dashboard/DesktopSidebar";
 import { Suspense, useEffect } from "react";
@@ -9,7 +23,6 @@ import Loader from "@/components/Common/Loader";
 import QueryProvider from "@/lib/QueryProvider";
 import { IsAuth } from "@/lib/auth/AuthProvider";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "TapUp | Dashboard",
@@ -23,9 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <QueryProvider>
-          <IsAuth>
+       <body className={`${inter.className} ${roboto_condensed.variable} ${racing_sans_one.variable} ${league_spartan.variable} ${roboto_mono.variable} ${montserrat.variable} ${open_sans.variable} ${raleway.variable} ${bebas_neue.variable} ${lato.variable} ${kaushan_script.variable} ${comic_neue.variable}`}>
+        {/* <QueryProvider>
+          <IsAuth> */}
             <section className=" dashboard-container ">
               <DesktopSidebar />
               <div>
@@ -36,8 +49,8 @@ export default function RootLayout({
               </div>
               <MobileNavbar />
             </section>
-          </IsAuth>
-        </QueryProvider>
+          {/* </IsAuth>
+        </QueryProvider> */}
       </body>
     </html>
   );
