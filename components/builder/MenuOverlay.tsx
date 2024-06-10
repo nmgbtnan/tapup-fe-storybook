@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "@/redux/store"
 import { capitalize } from "@/lib/capitalize"
 import { changeOverlayOpen } from "@/redux/features/menuSlice"
 import ProfileForm from "./ProfileForm"
+import SocialList from "./SocialList"
 
 
 const MenuOverlay = () => {
@@ -26,6 +27,7 @@ const MenuOverlay = () => {
       </div>
       <div className="p-5">
         <ProfileForm />
+        <SocialList />
       </div>
     </div>
   )
