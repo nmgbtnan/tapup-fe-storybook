@@ -70,7 +70,7 @@ const ProfileForm = () =>{
           name="position"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position</FormLabel>
+              <FormLabel>Position / Business Industry</FormLabel>
               <FormControl>
                 <Input  {...field} 
                   value={position}
