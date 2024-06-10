@@ -23,6 +23,10 @@ import { TbSocial } from "react-icons/tb";
 import { FaTools } from 'react-icons/fa'
 import StylesForm from './StylesForm'
 import { FontForm } from './FontForm'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { changeActiveForm, changeOverlayOpen } from '@/redux/features/menuSlice'
+import MenuOverlay from './MenuOverlay'
 
 const tabs = [
   {
@@ -57,13 +61,17 @@ const tabs = [
 ]
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('manage')
+  const dispatch = useDispatch<AppDispatch>()
   return (
     <nav className='mt-10'>
       <Tabs defaultValue="manage" className="flex">
         <TabsList className="flex flex-col min-h-screen justify-start bg-transparent mt-1 me-5">
           <ul>
             {tabs.map((tab) => (
-              <li key={tab.name} onClick={() => setActiveTab(tab.name)}>
+              <li key={tab.name} onClick={() => {
+                setActiveTab(tab.name)
+                dispatch(changeOverlayOpen(false))
+              }}>
                 <TabsTrigger value={tab.name} className='p-0 !bg-transparent'>
                   <Menutab icon={tab.icon} isActive={tab.name === activeTab} />
                 </TabsTrigger>
@@ -77,7 +85,7 @@ const Sidebar = () => {
             value={tab.name} 
             className='p-0 w-[350px] '
           >
-            <Card className='min-h-[300px]'>
+            <Card className='min-h-[300px] relative'>
               <CardHeader>
                 <CardTitle>{capitalize(tab.name)}</CardTitle>
               </CardHeader>
@@ -85,6 +93,10 @@ const Sidebar = () => {
                {tab.menuItems?.map((item, i) => (
                  <div key={i}
                   className='flex items-center justify-between hover:bg-gray-400 hover:text-white hover:cursor-pointer rounded-md border p-2'
+                  onClick={()=>{
+                    dispatch(changeActiveForm(item.name))
+                    dispatch(changeOverlayOpen(true))
+                  }}
                  >
                   <div className="flex items-center gap-2">
                     {item.icon}
@@ -95,6 +107,7 @@ const Sidebar = () => {
                ))}
                {tab.form !== null && tab.form}
               </CardContent>
+              <MenuOverlay />
             </Card>
           </TabsContent>
           
