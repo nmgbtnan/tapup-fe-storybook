@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 const Preview = () => {
   const {color, bgColor, nameColor, nameFontFamily, fontFamily, nameSize, infoSize} = useSelector((state:RootState) => state.styles)
+  const {name, position, bio} = useSelector((state:RootState) => state.profile)
   return (
     <div className='w-full flex flex-col justify-start items-center'>
       <div className='relative'>
@@ -41,13 +42,13 @@ const Preview = () => {
               <h4
                 style={{color: nameColor, fontSize: nameSize}}
                 className={nameFontFamily}
-              >Tony Stark</h4>
+              >{name}</h4>
               <div
                 style={{color: color, fontSize: infoSize}}
                 className={`${fontFamily} px-3`}
               >
-                <p className='text-[0.8em] leading-[1.1rem]'>Software Engineer</p>
-                <p className='text-[0.8em] leading-[1.1rem]'>Saving the world one suit at a time. Founder of Stark Industries and the Avengers. #IronMan #TechGuru #HeroLife</p>
+                <p className='text-[0.8em] leading-[1.1rem]'>{position}</p>
+                <p className='text-[0.8em] leading-[1.1rem]'>{bio}</p>
               </div>
             </div>
           </div>

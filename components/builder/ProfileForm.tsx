@@ -1,0 +1,106 @@
+"use client"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/redux/store"
+import { changeBio, changeName, changePosition } from "@/redux/features/profileSlice"
+import { Textarea } from "../ui/textarea"
+
+const formSchema = z.object({
+  name: z.string(),
+  position: z.string(),
+  bio: z.string().min(10),
+})
+
+const ProfileForm = () =>{
+  const {name, position, bio} = useSelector((state:RootState) => state.profile)
+  const {activeForm} = useSelector((state:RootState) => state.menu)
+  const dispatch = useDispatch<AppDispatch>()
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      position: "",
+      bio: "",
+    },
+  })
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(data)
+  }
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} 
+        className={`space-y-3 ${activeForm === 'profile' ? 'block' : 'hidden'}`}
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Display Name</FormLabel>
+              <FormControl>
+                <Input  {...field} 
+                  value={name}
+                  onChange={(e)=>dispatch(changeName(e.target.value))}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="position"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Position</FormLabel>
+              <FormControl>
+                <Input  {...field} 
+                  value={position}
+                  onChange={(e)=>dispatch(changePosition(e.target.value))}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> 
+        <FormField
+          control={form.control}
+          name="position"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bio</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Short description..." {...field} 
+                  value={bio}
+                  onChange={(e)=>dispatch(changeBio(e.target.value))}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Save Changes</Button>
+      </form>
+    </Form>
+  )
+}
+
+export default ProfileForm

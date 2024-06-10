@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
 import { capitalize } from "@/lib/capitalize"
 import { changeOverlayOpen } from "@/redux/features/menuSlice"
+import ProfileForm from "./ProfileForm"
 
 
 const MenuOverlay = () => {
@@ -22,6 +23,9 @@ const MenuOverlay = () => {
           <IoIosArrowRoundBack size={40}/>
           <span className="text-xl">{capitalize(activeForm)}</span>
         </Button>
+      </div>
+      <div className="p-5">
+        <ProfileForm />
       </div>
     </div>
   )
