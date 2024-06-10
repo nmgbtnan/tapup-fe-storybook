@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import styles from './features/stylesSlice';
 import  menu  from './features/menuSlice';
+import  profile  from './features/profileSlice';
 
 const store = configureStore({
   reducer: {
     styles,
-    menu
+    menu,
+    profile
   },
 })
 
