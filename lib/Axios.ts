@@ -2,7 +2,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const Axios = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
