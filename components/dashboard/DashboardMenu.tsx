@@ -1,6 +1,6 @@
 "use client";
 
-import useToken from "@/lib/auth/useToken";
+import getToken from "@/lib/auth/getToken";
 import Axios from "@/lib/Axios";
 import { menuLinks } from "@/lib/dashboardGrid";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ export default function DashboardMenu() {
   const { data: datas }: UseQueryResult<UserData, Error> = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
-      return useToken();
+      return getToken();
     },
   });
 
