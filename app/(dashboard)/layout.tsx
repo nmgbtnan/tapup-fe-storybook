@@ -24,18 +24,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <section className=" dashboard-container ">
-          <DesktopSidebar />
-          <div>
-            <DashboardNav />
-            <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
-              <Suspense fallback={<Loader />}>{children}</Suspense>
-            </main>
-          </div>
-          <MobileNavbar />
-        </section>
         <QueryProvider>
           <IsAuth>
+            <section className=" dashboard-container ">
+              <DesktopSidebar />
+              <div>
+                <DashboardNav />
+                <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
+                  <Suspense fallback={<Loader />}>{children}</Suspense>
+                </main>
+              </div>
+              <MobileNavbar />
+            </section>
             <section className=" dashboard-container ">
               <DesktopSidebar />
               <div>
