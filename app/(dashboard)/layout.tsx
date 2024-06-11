@@ -37,8 +37,8 @@ export default function RootLayout({
   return (
     <html lang="en">
        <body className={`${inter.className} ${roboto_condensed.variable} ${racing_sans_one.variable} ${league_spartan.variable} ${roboto_mono.variable} ${montserrat.variable} ${open_sans.variable} ${raleway.variable} ${bebas_neue.variable} ${lato.variable} ${kaushan_script.variable} ${comic_neue.variable}`}>
-        {/* <QueryProvider>
-          <IsAuth> */}
+        <QueryProvider>
+          <IsAuth>
             <section className=" dashboard-container ">
               <DesktopSidebar />
               <div>
@@ -49,8 +49,8 @@ export default function RootLayout({
               </div>
               <MobileNavbar />
             </section>
-          {/* </IsAuth>
-        </QueryProvider> */}
+          </IsAuth>
+        </QueryProvider>
       </body>
     </html>
   );
