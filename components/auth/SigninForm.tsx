@@ -84,7 +84,8 @@ export default function SigninForm() {
               <Button
                 variant={"outline"}
                 onClick={() =>
-                  (window.location.href = "http://localhost:5000/auth/google")
+                  (window.location.href =
+                    "https://tapupbe.chysev.com:5000/auth/google")
                 }
               >
                 {" "}
