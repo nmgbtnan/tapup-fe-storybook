@@ -4,10 +4,12 @@ import { Input } from "../ui/input";
 import DashboardMenu from "./DashboardMenu";
 import { useState, useEffect, useRef } from "react";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import useToken from "@/lib/auth/useToken";
+import getToken from "@/lib/auth/getToken";
+import { capitalize } from "@/lib/capitalize";
 
 type UserData = {
   user: {
+    name: string;
     avatarUrl: string;
   };
 };
@@ -35,7 +37,7 @@ export default function DashboardNav() {
   const { data: datas }: UseQueryResult<UserData, Error> = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
-      return useToken();
+      return getToken();
     },
   });
 
@@ -52,7 +54,7 @@ export default function DashboardNav() {
 
         <div className=" flex items-center gap-2 md:gap-4">
           <span className="text-center text-xs font-bold md:text-start md:text-sm">
-            Highlands Bali
+            Hi, {capitalize(datas?.user.name.split(' ')[0] || '')}
           </span>
           <div
             className="relative flex cursor-pointer items-center gap-2"
