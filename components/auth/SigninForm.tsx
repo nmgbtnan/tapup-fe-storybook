@@ -83,6 +83,7 @@ export default function SigninForm() {
 
               <Button
                 variant={"outline"}
+                type="button"
                 onClick={() =>
                   (window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`)
                 }
