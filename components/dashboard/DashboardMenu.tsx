@@ -6,6 +6,8 @@ import { menuLinks } from "@/lib/dashboardGrid";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { capitalize } from "@/lib/capitalize";
 
 type UserData = {
   user: {
@@ -33,11 +35,10 @@ export default function DashboardMenu() {
   return (
     <>
       <div className=" flex items-center gap-2 border-b-2 border-gray-500">
-        <img
-          src={`${datas?.user.avatarUrl}`}
-          alt="profile-picture"
-          className="mb-1 w-8 border rounded-full"
-        />
+        <Avatar className="border">
+          <AvatarImage src={`${datas?.user.avatarUrl}`} />
+          <AvatarFallback>{capitalize(datas?.user.name.slice(0, 1) || '')}</AvatarFallback>
+        </Avatar>
         <div className=" flex flex-col">
           <span className="text-xs font-bold md:text-sm">
             {datas?.user.name}

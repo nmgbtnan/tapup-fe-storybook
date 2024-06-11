@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import getToken from "@/lib/auth/getToken";
 import { capitalize } from "@/lib/capitalize";
+import { AvatarFallback, Avatar, AvatarImage } from "../ui/avatar";
 
 type UserData = {
   user: {
@@ -60,11 +61,15 @@ export default function DashboardNav() {
             className="relative flex cursor-pointer items-center gap-2"
             onClick={handleMenu}
           >
-            <img
+            <Avatar className="border">
+              <AvatarImage src={`${datas?.user.avatarUrl}`} />
+              <AvatarFallback>{capitalize(datas?.user.name.slice(0, 1) || '')}</AvatarFallback>
+            </Avatar>
+            {/* <img
               src={`${datas?.user.avatarUrl}`}
               alt="profile-picture"
               className="w-8 md:w-10 border rounded-full"
-            />
+            /> */}
             <div className=" absolute bottom-0 left-4 z-50 flex h-3 w-3 items-center justify-center rounded-full  border-2 border-custom-textGray bg-custom-black text-white md:left-6 md:h-4 md:w-4">
               <ChevronDown />
             </div>
