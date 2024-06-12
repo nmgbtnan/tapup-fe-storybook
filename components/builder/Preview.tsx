@@ -58,7 +58,7 @@ const Preview = () => {
               </div>
             </div>
             {/* Socials */}
-            <div className="flex justify-center gap-4 mt-3">
+            <div className="flex justify-center gap-2 mt-3 flex-wrap">
               {socials?.map((social) => (
                 <Link key={social.name}
                   href={social.link}
@@ -66,7 +66,8 @@ const Preview = () => {
                   className='hover:text-green-600'
                 >
                   <div
-                    className='bg-gray-200 p-2 rounded-md hover:cursor-pointer'
+                    className='p-2 rounded-md hover:cursor-pointer'
+                    style={{backgroundColor: social.iconBgColor, color: social.iconColor}}
                   >{social.icon}</div>
                 </Link>
               ))}
