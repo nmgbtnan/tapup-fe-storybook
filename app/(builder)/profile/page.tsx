@@ -1,19 +1,13 @@
-import CustomisableCard from '@/components/Editor/CustomisableCard';
-import Accordions from '@/components/Editor/Accordions';
-import Sidebar from '@/components/Editor/Sidebar';
-import { Suspense } from 'react';
+
+import Preview from '@/components/builder/Preview';
+import Sidebar from '@/components/builder/Sidebar';
 
 export default function Profile() {
   return (
-    <div className="w-screen flex flex-row h-screen">
-      <Suspense>
-        <Sidebar />
-      </Suspense>
-      <Accordions />
-      <section className="flex-grow py-14 border-x flex justify-center">
-        <CustomisableCard />
-      </section>
-      <section className="w-[80px]"></section>
-    </div>
+    <section className="w-screen flex flex-row min-h-screen bg-gray-200 p-5">
+     
+      <Sidebar/>
+      <Preview/>
+    </section>
   );
 }

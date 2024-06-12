@@ -42,7 +42,7 @@ export const SIDEBAR_LINKS: SidebarLink[] = [
       {
         key: 'profileBuilder',
         label: 'Profile Builder',
-        path: '/dashboard/profile/profile-builder',
+        path: '/dashboard/profile/builder',
         icon: <LucideGitGraph />,
       },
     ],
