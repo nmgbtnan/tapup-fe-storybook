@@ -5,64 +5,50 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useState } from 'react'
 import { useMenuState } from '@/hooks/useMenuState'
+import {useBuilderSocial } from '@/hooks/useBuilderSocial'
+import SocialsForm from './SocialsForm'
 
+interface Social {
+  type: string;
+  icon: JSX.Element;
+}
 const SocialList = () => {
   const {activeForm} = useMenuState((state) => state)
-  const [selectedSocial, setSelectedSocial] = useState('')
+  const [selectedSocial, setSelectedSocial] = useState<Social>(SocialLists[0])
+  const {socials} = useBuilderSocial((state) => state) 
+
+  console.log('socials', socials);
+  
   return (
     <section className={`${activeForm === 'socials' ? 'block' : 'hidden'} mt-6`}>
-      
-
       <Dialog>
         <DialogTrigger asChild>
           <ul className="flex gap-3 flex-wrap text-lg justify-center mb-3">
-            {SocialLists.map((social, i) => (
+          {SocialLists.map((socList, i) => {
+            const isSocialInArray = socials.some((social) => social.name === socList.type);
+
+            return (
                 <li key={i}
-                  onClick={() => setSelectedSocial(social.type)}
-                  className="bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:bg-green-500 hover:text-white"
+                  onClick={() => setSelectedSocial(socList)}
+                  className={`bg-gray-200 p-2 rounded-lg hover:cursor-pointer ${isSocialInArray ? 'bg-green-500 text-white' : ''}`}
                 >
-                  {social.icon}
+                  {socList.icon}
                 </li>
-            ))}
+            );
+          })}
           </ul>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{selectedSocial}</DialogTitle>
+            <DialogTitle>{selectedSocial?.type}</DialogTitle>
           </DialogHeader>
-            <div className="flex items-center gap-3 mt-3">
-              <Label>Link</Label>
-              <Input className="w-full" 
-                type='url'
-                placeholder='https://example.com'
-              />
-            </div>
-            <div className="flex items-center gap-3">
-              <div className='w-1/2'>
-                <Label>Color</Label>
-                <Input className="w-full p-0" 
-                  type='color'
-                />
-              </div>
-              <div className='w-1/2 '>
-                <Label>Bg Color</Label>
-                <Input className="w-full p-0" 
-                  type='color'
-                />
-              </div>
-            </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
+          <SocialsForm selectedSocial={selectedSocial}/>
         </DialogContent>
       </Dialog>
     </section>
