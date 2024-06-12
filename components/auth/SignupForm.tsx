@@ -1,8 +1,8 @@
-'use client'
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, formAttributes } from '../../lib/auth/Formschema';
+"use client";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema, formAttributes } from "../../lib/auth/Formschema";
 import {
   Form,
   FormControl,
@@ -10,13 +10,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { FormEvent, useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
-import Link from 'next/link';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { FormEvent, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import Axios from "@/lib/Axios";
 
 export default function SignupForm() {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -24,19 +25,32 @@ export default function SignupForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       privacyPolicy: false,
     },
   });
 
   const { reset } = form;
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    reset();
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (values.password !== values.confirmPassword) {
+      return;
+    }
+
+    const { confirmPassword, ...formData } = values;
+
+    try {
+      await Axios.post("/auth/register", formData);
+      reset();
+    } catch (error) {
+      // Handle error (optional)
+      console.error("Error registering:", error);
+    }
   };
+
   const handleToggle = (e: FormEvent) => {
     e.preventDefault();
     setToggle((c) => !c);
@@ -93,8 +107,8 @@ export default function SignupForm() {
                         <Input
                           className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           {...formField}
-                          type={toggle ? 'text' : 'password'}
-                          placeholder={toggle ? 'password' : '*********'}
+                          type={toggle ? "text" : "password"}
+                          placeholder={toggle ? "password" : "*********"}
                         />
                         <div
                           onClick={handleToggle}
@@ -144,11 +158,11 @@ export default function SignupForm() {
 
                   <FormLabel>
                     <p className="text-xs text-custom-black">
-                      By agreeing, you agree TapUp{' '}
+                      By agreeing, you agree TapUp{" "}
                       <Link className="text-xs text-custom-green" href="">
                         Terms and Services
-                      </Link>{' '}
-                      and{' '}
+                      </Link>{" "}
+                      and{" "}
                       <Link className="text-xs text-custom-green" href="">
                         Privacy Policy
                       </Link>
