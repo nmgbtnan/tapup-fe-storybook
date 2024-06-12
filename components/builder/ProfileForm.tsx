@@ -14,10 +14,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/redux/store"
-import { changeBio, changeName, changePosition } from "@/redux/features/profileSlice"
+import {  useSelector } from "react-redux"
+import {  RootState } from "@/redux/store"
 import { Textarea } from "../ui/textarea"
+import { useBuilderProfile } from "@/hooks/useBuilderProfile"
 
 const formSchema = z.object({
   name: z.string(),
@@ -26,16 +26,17 @@ const formSchema = z.object({
 })
 
 const ProfileForm = () =>{
-  const {name, position, bio} = useSelector((state:RootState) => state.profile)
   const {activeForm} = useSelector((state:RootState) => state.menu)
-  const dispatch = useDispatch<AppDispatch>()
-
+  
+  const {name, position, bio} = useBuilderProfile((state) => state)
+  const {changeName, changePosition, changeBio} = useBuilderProfile((state) => state)
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      position: "",
-      bio: "",
+      name: name,
+      position: position,
+      bio: bio,
     },
   })
 
@@ -58,7 +59,7 @@ const ProfileForm = () =>{
               <FormControl>
                 <Input  {...field} 
                   value={name}
-                  onChange={(e)=>dispatch(changeName(e.target.value))}
+                  onChange={(e)=>changeName(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
@@ -74,7 +75,7 @@ const ProfileForm = () =>{
               <FormControl>
                 <Input  {...field} 
                   value={position}
-                  onChange={(e)=>dispatch(changePosition(e.target.value))}
+                  onChange={(e)=>changePosition(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
@@ -90,7 +91,7 @@ const ProfileForm = () =>{
               <FormControl>
                 <Textarea placeholder="Short description..." {...field} 
                   value={bio}
-                  onChange={(e)=>dispatch(changeBio(e.target.value))}
+                  onChange={(e)=>changeBio(e.target.value)}
                 />
               </FormControl>
               <FormMessage />

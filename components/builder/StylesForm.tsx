@@ -15,10 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/redux/store"
-import { changeNameColor, styles } from "@/redux/features/stylesSlice"
-import { changeColor, changeBgColor } from "@/redux/features/stylesSlice"
+import { useBuilderColor } from "@/hooks/useBuilderColor"
 const formSchema = z.object({
   fontColor: z.string(),
   bgColor: z.string(),
@@ -26,13 +23,13 @@ const formSchema = z.object({
 })
 
 const StylesForm = () => {
-  const {color, bgColor, nameColor} = useSelector((state:RootState) => state.styles)
-  const dispatch = useDispatch<AppDispatch>()
-
+  const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
+  const {changeNameColor, changeFontColor, changeBgColor} = useBuilderColor((state) => state)
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fontColor: color,
+      fontColor: fontColor,
       bgColor: bgColor,
       nameColor: nameColor
     },
@@ -57,7 +54,7 @@ const StylesForm = () => {
                   type="color"
                   className="p-0"
                   value={nameColor}
-                  onChange={(e) => dispatch(changeNameColor(e.target.value))}
+                  onChange={(e) => changeNameColor(e.target.value)}
                 />
               </FormControl>
               
@@ -75,8 +72,8 @@ const StylesForm = () => {
                 <Input {...field}
                   type="color"
                   className="p-0"
-                  value={color}
-                  onChange={(e) => dispatch(changeColor(e.target.value))}
+                  value={fontColor}
+                  onChange={(e) => changeFontColor(e.target.value)}
                 />
               </FormControl>
               
@@ -95,7 +92,7 @@ const StylesForm = () => {
                   type="color"
                   className="p-0"
                   value={bgColor}
-                  onChange={(e) => dispatch(changeBgColor(e.target.value))}
+                  onChange={(e) => changeBgColor(e.target.value)}
                 />
               </FormControl>
               

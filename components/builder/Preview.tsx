@@ -6,11 +6,14 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
+
+import { useBuilderProfile } from '@/hooks/useBuilderProfile'
+import { useBuilderColor } from '@/hooks/useBuilderColor'
+import { useBuilderFont } from '@/hooks/useBuilderFont'
 const Preview = () => {
-  const {color, bgColor, nameColor, nameFontFamily, fontFamily, nameSize, infoSize} = useSelector((state:RootState) => state.styles)
-  const {name, position, bio} = useSelector((state:RootState) => state.profile)
+  const {name, position, bio} = useBuilderProfile((state) => state)
+  const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
+  const {nameFontFamily, fontFamily, nameSize, infoSize} = useBuilderFont((state) => state)
   return (
     <div className='w-full flex flex-col justify-start items-center'>
       <div className='relative'>
@@ -44,7 +47,7 @@ const Preview = () => {
                 className={nameFontFamily}
               >{name}</h4>
               <div
-                style={{color: color, fontSize: infoSize}}
+                style={{color: fontColor, fontSize: infoSize}}
                 className={`${fontFamily} px-3`}
               >
                 <p className='text-[0.8em] leading-[1.1rem]'>{position}</p>

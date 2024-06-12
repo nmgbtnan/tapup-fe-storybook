@@ -20,9 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { fontOptions, fontSizeOptions } from "@/lib/fontOptions"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/redux/store"
-import { changeNameFontFamily, changeFontFamily, changeNameSize, changeInfoSize } from "@/redux/features/stylesSlice"
+import { useBuilderFont } from "@/hooks/useBuilderFont"
 
 const FormSchema = z.object({
   name: z.string(),
@@ -32,8 +30,9 @@ const FormSchema = z.object({
 })
 
 export function FontForm() {
-  const {nameFontFamily, fontFamily, nameSize, infoSize} = useSelector((state:RootState) => state.styles)
-  const dispatch = useDispatch<AppDispatch>()
+  const {nameFontFamily, fontFamily, nameSize, infoSize} = useBuilderFont((state) => state)
+  const {changeNameFontFamily, changeFontFamily, changeNameSize, changeInfoSize} = useBuilderFont((state) => state)
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,7 +46,6 @@ export function FontForm() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
    
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
@@ -58,7 +56,9 @@ export function FontForm() {
             render={({ field }) => (
               <FormItem className="w-3/4">
                 <FormLabel>Display Name</FormLabel>
-                <Select onValueChange={(value)=>dispatch(changeNameFontFamily(value))} defaultValue={field.value}>
+                <Select onValueChange={(value)=>changeNameFontFamily(value)} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a font style" />
@@ -80,7 +80,9 @@ export function FontForm() {
             render={({ field }) => (
               <FormItem className="w-1/4">
                 <FormLabel>Size</FormLabel>
-                <Select onValueChange={(value)=>dispatch(changeNameSize(value))} defaultValue={field.value}>
+                <Select onValueChange={(value)=>changeNameSize(value)} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a font style" />
@@ -105,7 +107,9 @@ export function FontForm() {
             render={({ field }) => (
               <FormItem className="w-3/4"> 
                 <FormLabel>Infos</FormLabel>
-                <Select onValueChange={(value)=>dispatch(changeFontFamily(value))} defaultValue={field.value}>
+                <Select onValueChange={(value)=>changeFontFamily(value)} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a font style" />
@@ -127,7 +131,9 @@ export function FontForm() {
             render={({ field }) => (
               <FormItem className="w-1/4">
                 <FormLabel>Size</FormLabel>
-                <Select onValueChange={(value)=>dispatch(changeInfoSize(value))} defaultValue={field.value}>
+                <Select onValueChange={(value)=>changeInfoSize(value)} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a font style" />
