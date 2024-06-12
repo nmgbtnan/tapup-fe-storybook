@@ -14,26 +14,43 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useBuilderSocial } from "@/hooks/useBuilderSocial"
+import { DialogClose } from "@radix-ui/react-dialog"
 
 const formSchema = z.object({
+  link: z.string().url(),
   iconColor: z.string(),
   iconBgColor: z.string(),
 })
 
-const SocialsForm = () => {
+interface Props {
+  selectedSocial: {
+    type: string;
+    icon: JSX.Element;
+  }
+}
+const SocialsForm = ({selectedSocial} : Props ) => {
+  const {socials, addSocial, removeSocial, updateSocial} = useBuilderSocial((state) => state)
+  const social = socials.find((social) => social.name === selectedSocial.type)
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      iconColor: "",
-      iconBgColor: "#E5E7EB",
+      link: social?.link || "",
+      iconColor: social?.iconColor || "#000000",
+      iconBgColor: social?.iconBgColor || "#E5E7EB",
     },
   })
-
-  
   
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    
+    if(!social) {
+      addSocial(selectedSocial.type, selectedSocial.icon, data.link, data.iconColor, data.iconBgColor)
+    } else {
+      updateSocial(selectedSocial.type, selectedSocial.icon, data.link, data.iconColor, data.iconBgColor)
+    }
     console.log(data)
   }
 
@@ -45,37 +62,65 @@ const SocialsForm = () => {
       >
         <FormField
           control={form.control}
-          name="iconColor"
+          name="link"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Icon Color</FormLabel>
+              <FormLabel>Link</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field}
-                  type="color"
-                  className="p-0"
+                <Input placeholder="https://www.example.com" {...field}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="iconBgColor"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Background Color</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field}
-                  type="color"
-                  className="p-0"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+        <div className="flex gap-5">
+          <FormField
+            control={form.control}
+            name="iconColor"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Icon Color</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field}
+                    type="color"
+                    className="p-0"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="iconBgColor"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Background Color</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field}
+                    type="color"
+                    className="p-0"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        </div>
+        <div className="flex justify-end gap-3 mt-5">
+          <DialogClose asChild>
+            <Button 
+              variant="destructive"
+              type="button"
+              onClick={() => removeSocial(selectedSocial.type)}
+            >Remove</Button>            
+          </DialogClose>
+          <DialogClose asChild>
+            <Button type="submit">Save Changes</Button>
+          </DialogClose>
+        </div>
       </form>
     </Form>
   )
