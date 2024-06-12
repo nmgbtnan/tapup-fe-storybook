@@ -1,17 +1,82 @@
+// tailwind.config.ts
 /** @type {import('tailwindcss').Config} */
 /* eslint-disable max-len */
 const colors = require('tailwindcss/colors');
+const tailwindcssAnimate = require('tailwindcss-animate');
+const headlessui = require('@headlessui/tailwindcss');
+const tailwindcssForms = require('@tailwindcss/forms');
+
 module.exports = {
+  darkMode: ['class'],
   content: [
-    './index.html',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
+    './index.html',
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
   ],
+  prefix: '',
   theme: {
     transparent: 'transparent',
     current: 'currentColor',
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '.5rem',
+        sm: '1rem',
+        '2xl': '4rem',
+      },
+      screens: {
+        DEFAULT: '1200px',
+        '2xl': '1440px',
+      },
+    },
     extend: {
       colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        custom: {
+          green: '#22C55E',
+          black: '#1e1e1e',
+          gray: '#ededed',
+          textGray: '#454545',
+          badge: {
+            greenbg: '#bcf6cc',
+            redbg: '#fecdcd',
+          },
+        },
         // light mode
         tremor: {
           brand: {
@@ -73,6 +138,28 @@ module.exports = {
           },
         },
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+        'tremor-small': '0.375rem',
+        'tremor-default': '0.5rem',
+        'tremor-full': '9999px',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
       boxShadow: {
         // light
         'tremor-input': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
@@ -87,16 +174,28 @@ module.exports = {
         'dark-tremor-dropdown':
           '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       },
-      borderRadius: {
-        'tremor-small': '0.375rem',
-        'tremor-default': '0.5rem',
-        'tremor-full': '9999px',
-      },
       fontSize: {
         'tremor-label': ['0.75rem', { lineHeight: '1rem' }],
         'tremor-default': ['0.875rem', { lineHeight: '1.25rem' }],
         'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
+      },
+      width: {
+        showcase: 'calc(100% - 50px)',
+      },
+      fontFamily: {
+        'racing-sans-one': [`var(--font-racing-sans-one)`],
+        'roboto-condensed': ['var(--font-roboto-condensed)'],
+        'league-spartan': ['var(--font-league-spartan)'],
+        'roboto-mono': ['var(--font-roboto-mono)'],
+        montserrat: ['var(--font-montserrat)'],
+        'open-sans': ['var(--font-open-sans)'],
+        raleway: ['var(--font-raleway)'],
+        bebas: ['var(--font-bebas-neue)'],
+        lato: ['var(--font-lato)'],
+        kaushan: ['var(--font-kaushan-script)'],
+        'comic-neue': ['var(--font-comic-neue)'],
+        inter: ['var(--font-inter)'],
       },
     },
   },
@@ -129,5 +228,5 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require('@headlessui/tailwindcss'), require('@tailwindcss/forms')],
+  plugins: [tailwindcssAnimate, headlessui, tailwindcssForms],
 };
