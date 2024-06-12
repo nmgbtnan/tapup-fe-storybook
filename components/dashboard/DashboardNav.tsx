@@ -4,10 +4,13 @@ import { Input } from "../ui/input";
 import DashboardMenu from "./DashboardMenu";
 import { useState, useEffect, useRef } from "react";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import useToken from "@/lib/auth/useToken";
+import getToken from "@/lib/auth/getToken";
+import { capitalize } from "@/lib/capitalize";
+import { AvatarFallback, Avatar, AvatarImage } from "../ui/avatar";
 
 type UserData = {
   user: {
+    name: string;
     avatarUrl: string;
   };
 };
@@ -35,7 +38,7 @@ export default function DashboardNav() {
   const { data: datas }: UseQueryResult<UserData, Error> = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
-      return useToken();
+      return getToken();
     },
   });
 
@@ -52,17 +55,21 @@ export default function DashboardNav() {
 
         <div className=" flex items-center gap-2 md:gap-4">
           <span className="text-center text-xs font-bold md:text-start md:text-sm">
-            Highlands Bali
+            Hi, {capitalize(datas?.user.name.split(' ')[0] || '')}
           </span>
           <div
             className="relative flex cursor-pointer items-center gap-2"
             onClick={handleMenu}
           >
-            <img
+            <Avatar className="border">
+              <AvatarImage src={`${datas?.user.avatarUrl}`} />
+              <AvatarFallback>{capitalize(datas?.user.name.slice(0, 1) || '')}</AvatarFallback>
+            </Avatar>
+            {/* <img
               src={`${datas?.user.avatarUrl}`}
               alt="profile-picture"
               className="w-8 md:w-10 border rounded-full"
-            />
+            /> */}
             <div className=" absolute bottom-0 left-4 z-50 flex h-3 w-3 items-center justify-center rounded-full  border-2 border-custom-textGray bg-custom-black text-white md:left-6 md:h-4 md:w-4">
               <ChevronDown />
             </div>

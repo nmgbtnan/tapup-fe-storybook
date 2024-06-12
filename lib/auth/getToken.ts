@@ -1,6 +1,6 @@
 import Axios from "../Axios";
 
-const useToken = async () => {
+const getToken = async () => {
   try {
     const response = await Axios.get("/api/session");
     console.log(response.data);
@@ -13,7 +13,10 @@ const useToken = async () => {
 
 export const isAuthenticated = async (router: any) => {
   try {
-    await useToken();
+    await getToken()
+    .then((res) => {
+      router.push("/dashboard");
+    });
   } catch (error) {
     // If there is no session
     router.push("/sign-in");
@@ -21,14 +24,5 @@ export const isAuthenticated = async (router: any) => {
   }
 };
 
-export const isNotAuthenticated = async (router: any) => {
-  try {
-    // If there is session
-    await useToken();
-    router.push("/dashboard");
-  } catch (error) {
-    console.error("Error getting session:", error);
-  }
-};
 
-export default useToken;
+export default getToken;

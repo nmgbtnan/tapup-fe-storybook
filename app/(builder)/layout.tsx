@@ -30,8 +30,8 @@ export default function BuilderLayout({
     <html>
       <body className={`${inter.className} ${roboto_condensed.variable} ${racing_sans_one.variable} ${league_spartan.variable} ${roboto_mono.variable} ${montserrat.variable} ${open_sans.variable} ${raleway.variable} ${bebas_neue.variable} ${lato.variable} ${kaushan_script.variable} ${comic_neue.variable}`}>
         <section className="w-full overflow-x-hidden layout-rout">
-          <div className="relative z-0">      
-            {children}
+          <div className="relative z-0">
+              {children}     
           </div>
         </section>
       </body>
