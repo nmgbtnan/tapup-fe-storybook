@@ -9,7 +9,7 @@ const IsAuth = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     isAuthenticated(router);
-  }, []);
+  }, [router]);
   return <>{children}</>;
 };
 
