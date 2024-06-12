@@ -11,6 +11,7 @@ import { useBuilderProfile } from '@/hooks/useBuilderProfile'
 import { useBuilderColor } from '@/hooks/useBuilderColor'
 import { useBuilderFont } from '@/hooks/useBuilderFont'
 import { useBuilderSocial } from '@/hooks/useBuilderSocial'
+import Link from 'next/link'
 const Preview = () => {
   const {name, position, bio} = useBuilderProfile((state) => state)
   const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
@@ -57,9 +58,17 @@ const Preview = () => {
               </div>
             </div>
             {/* Socials */}
-            <div className="flex justify-center gap-4 mt-10">
-              {socials.map((social) => (
-                <p key={social.name}>{social.name}</p>
+            <div className="flex justify-center gap-4 mt-3">
+              {socials?.map((social) => (
+                <Link key={social.name}
+                  href={social.link}
+                  target='_blank'
+                  className='hover:text-green-600'
+                >
+                  <div
+                    className='bg-gray-200 p-2 rounded-md hover:cursor-pointer'
+                  >{social.icon}</div>
+                </Link>
               ))}
             </div>
           </div>
