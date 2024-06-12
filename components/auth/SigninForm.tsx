@@ -1,6 +1,6 @@
-'use client'
+"use client";
 // import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
@@ -8,12 +8,14 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import Axios from "@/lib/Axios";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -25,14 +27,25 @@ export default function SigninForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
+  const { reset } = form;
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await Axios.post("/auth/login", values).then((res) => {
+        if (res) {
+          router.push("/dashboard");
+        }
+      });
+      reset();
+    } catch (error) {
+      console.error("Error registering:", error);
+    }
   };
+
   return (
     <div className="flex">
       <Form {...form}>
@@ -68,8 +81,15 @@ export default function SigninForm() {
                 )}
               /> */}
 
-              <Button variant={'outline'}>
-                <img src="./google-icon.svg" alt="googleIcon" width={20} />{' '}
+              <Button
+                variant={"outline"}
+                onClick={() =>
+                  (window.location.href =
+                    "https://tapupbe.chysev.com/auth/google")
+                }
+              >
+                {" "}
+                <img src="./google-icon.svg" alt="googleIcon" width={20} />{" "}
                 &nbsp;Continue with Google
               </Button>
 
@@ -134,7 +154,7 @@ export default function SigninForm() {
               />
 
               <span
-                onClick={() => router.push('/forgot-password')}
+                onClick={() => router.push("/forgot-password")}
                 className="ml-auto mt-1 cursor-pointer text-sm text-green-600 hover:text-gray-900"
               >
                 Forgot Password?
@@ -144,14 +164,14 @@ export default function SigninForm() {
                 <label className="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   By proceeding, you agreed to the&nbsp;
                   <span
-                    onClick={() => router.push('/terms-of-service')}
+                    onClick={() => router.push("/terms-of-service")}
                     className="cursor-pointer font-semibold underline  hover:text-green-600"
                   >
                     Terms of services
                   </span>
                   &nbsp;and&nbsp;
                   <span
-                    onClick={() => router.push('/privacy-policy')}
+                    onClick={() => router.push("/privacy-policy")}
                     className="cursor-pointer font-semibold underline hover:text-green-600"
                   >
                     Privacy policy
@@ -167,7 +187,7 @@ export default function SigninForm() {
                 <p>
                   Don’t have an account?&nbsp;
                   <span
-                    onClick={() => router.push('/sign-up')}
+                    onClick={() => router.push("/sign-up")}
                     className="cursor-pointer font-semibold hover:text-green-600"
                   >
                     Sign-up here
