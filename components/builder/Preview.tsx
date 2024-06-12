@@ -10,10 +10,12 @@ import {
 import { useBuilderProfile } from '@/hooks/useBuilderProfile'
 import { useBuilderColor } from '@/hooks/useBuilderColor'
 import { useBuilderFont } from '@/hooks/useBuilderFont'
+import { useBuilderSocial } from '@/hooks/useBuilderSocial'
 const Preview = () => {
   const {name, position, bio} = useBuilderProfile((state) => state)
   const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
   const {nameFontFamily, fontFamily, nameSize, infoSize} = useBuilderFont((state) => state)
+  const {socials} = useBuilderSocial((state) => state)
   return (
     <div className='w-full flex flex-col justify-start items-center'>
       <div className='relative'>
@@ -53,6 +55,12 @@ const Preview = () => {
                 <p className='text-[0.8em] leading-[1.1rem]'>{position}</p>
                 <p className='text-[0.8em] leading-[1.1rem]'>{bio}</p>
               </div>
+            </div>
+            {/* Socials */}
+            <div className="flex justify-center gap-4 mt-10">
+              {socials.map((social) => (
+                <p key={social.name}>{social.name}</p>
+              ))}
             </div>
           </div>
         </div>
