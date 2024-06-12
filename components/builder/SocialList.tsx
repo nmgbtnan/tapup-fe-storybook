@@ -1,12 +1,10 @@
+'use client'
 import { SocialLists } from '@/lib/SOCIAL_ICONS'
-import { RootState } from '@/redux/store'
-import { useSelector } from 'react-redux'
 
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,9 +12,12 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useState } from 'react'
+import { useMenuState } from '@/hooks/useMenuState'
 
 const SocialList = () => {
-  const {activeForm} = useSelector((state:RootState) => state.menu)
+  const {activeForm} = useMenuState((state) => state)
+  const [selectedSocial, setSelectedSocial] = useState('')
   return (
     <section className={`${activeForm === 'socials' ? 'block' : 'hidden'} mt-6`}>
       
@@ -26,6 +27,7 @@ const SocialList = () => {
           <ul className="flex gap-3 flex-wrap text-lg justify-center mb-3">
             {SocialLists.map((social, i) => (
                 <li key={i}
+                  onClick={() => setSelectedSocial(social.type)}
                   className="bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:bg-green-500 hover:text-white"
                 >
                   {social.icon}
@@ -35,12 +37,13 @@ const SocialList = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Socials</DialogTitle>
+            <DialogTitle>{selectedSocial}</DialogTitle>
           </DialogHeader>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mt-3">
               <Label>Link</Label>
               <Input className="w-full" 
                 type='url'
+                placeholder='https://example.com'
               />
             </div>
             <div className="flex items-center gap-3">
