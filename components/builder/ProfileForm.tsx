@@ -14,10 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {  useSelector } from "react-redux"
-import {  RootState } from "@/redux/store"
 import { Textarea } from "../ui/textarea"
 import { useBuilderProfile } from "@/hooks/useBuilderProfile"
+import { useMenuState } from "@/hooks/useMenuState"
 
 const formSchema = z.object({
   name: z.string(),
@@ -26,8 +25,7 @@ const formSchema = z.object({
 })
 
 const ProfileForm = () =>{
-  const {activeForm} = useSelector((state:RootState) => state.menu)
-  
+  const {activeForm} = useMenuState((state) => state)
   const {name, position, bio} = useBuilderProfile((state) => state)
   const {changeName, changePosition, changeBio} = useBuilderProfile((state) => state)
   

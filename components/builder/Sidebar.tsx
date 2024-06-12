@@ -23,10 +23,8 @@ import { TbSocial } from "react-icons/tb";
 import { FaTools } from 'react-icons/fa'
 import StylesForm from './StylesForm'
 import { FontForm } from './FontForm'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/redux/store'
-import { changeActiveForm, changeOverlayOpen } from '@/redux/features/menuSlice'
 import MenuOverlay from './MenuOverlay'
+import { useMenuState } from '@/hooks/useMenuState'
 
 const tabs = [
   {
@@ -61,7 +59,8 @@ const tabs = [
 ]
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('manage')
-  const dispatch = useDispatch<AppDispatch>()
+  
+  const {changeActiveForm, changeOverlayOpen} = useMenuState((state)=> state)
   return (
     <nav className='mt-10'>
       <Tabs defaultValue="manage" className="flex">
@@ -70,7 +69,7 @@ const Sidebar = () => {
             {tabs.map((tab) => (
               <li key={tab.name} onClick={() => {
                 setActiveTab(tab.name)
-                dispatch(changeOverlayOpen(false))
+                changeOverlayOpen(false)
               }}>
                 <TabsTrigger value={tab.name} className='p-0 !bg-transparent'>
                   <Menutab icon={tab.icon} isActive={tab.name === activeTab} />
@@ -94,8 +93,8 @@ const Sidebar = () => {
                  <div key={i}
                   className='flex items-center justify-between hover:bg-gray-400 hover:text-white hover:cursor-pointer rounded-md border p-2'
                   onClick={()=>{
-                    dispatch(changeActiveForm(item.name))
-                    dispatch(changeOverlayOpen(true))
+                    changeActiveForm(item.name)
+                    changeOverlayOpen(true)
                   }}
                  >
                   <div className="flex items-center gap-2">
