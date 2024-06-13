@@ -1,13 +1,12 @@
 
-import Preview from '@/components/builder/Preview'
-import Sidebar from '@/components/builder/Sidebar'
-import React from 'react'
+
+import BuilderContainer from '@/components/builder/BuilderContainer'
 
 const ProfileBuilder = () => {
+  
   return (
     <section className='w-full flex flex-row'>
-        <Sidebar/>
-        <Preview/>
+        <BuilderContainer />
     </section>
   )
 }
