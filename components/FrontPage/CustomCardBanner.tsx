@@ -48,6 +48,7 @@ export default function CustomCardBanner() {
           <Image
             src="./custom-card-banner.svg"
             alt="Custom Card Banner"
+            priority
             height={1000}
             width={1000}
           />

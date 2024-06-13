@@ -9,7 +9,7 @@ export default function Footer() {
         <Image
           src="./footer-card.svg"
           alt="footer-card"
-          className="absolute hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-28"
+          className="absolute w-auto hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-28"
           width={300}
           height={300}
         />
@@ -29,6 +29,7 @@ export default function Footer() {
               alt="footer-card"
               width={50}
               height={50}
+              className="w-auto"
             />
             <p className="flex items-center gap-2 font-bold">
               Tap
