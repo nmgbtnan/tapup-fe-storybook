@@ -1,4 +1,5 @@
-import { Button } from '../ui/button';
+import Image from "next/image";
+import { Button } from "../ui/button";
 
 type CustomCardProps = {
   image: string;
@@ -18,7 +19,7 @@ export default function CustomCards({
   return (
     <div className="flex flex-col items-center text-center lg:items-start lg:text-start">
       <p className="text-lg font-[600]">{name}</p>
-      <img src={image} width={250} />
+      <Image alt="Card Image" src={image} width={250} height={250} />
       <div className="flex flex-col gap-2">
         <div className="flex w-[200px] flex-row items-center justify-between font-[600]">
           <p className="text-[20px]">Php {price.toFixed(2)}</p>
@@ -27,7 +28,12 @@ export default function CustomCards({
         <p className="text-lg text-custom-textGray">{description}</p>
         <div className="flex flex-row items-center gap-4 font-[500]">
           <Button size="icon" className="bg-[#ededed]">
-            <img src="./cart-icon-black.svg" />
+            <Image
+              alt="Cart Icon"
+              src="./cart-icon-black.svg"
+              height={20}
+              width={20}
+            />
           </Button>
           <p>Add To Cart</p>
         </div>

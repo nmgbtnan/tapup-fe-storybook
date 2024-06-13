@@ -1,32 +1,33 @@
-import CustomCards from './CustomCards';
+import Image from "next/image";
+import CustomCards from "./CustomCards";
 
 const CUSTOM_CARDS = [
   {
-    image: './custom-card-table.svg',
-    name: 'Matte Black',
+    image: "./custom-card-table.svg",
+    name: "Matte Black",
     price: 3000,
-    description: 'Standard Black Card',
+    description: "Standard Black Card",
     total: 1,
   },
   {
-    image: './custom-card-building.svg',
-    name: 'Matte Black',
+    image: "./custom-card-building.svg",
+    name: "Matte Black",
     price: 3000,
-    description: 'Standard Black Card',
+    description: "Standard Black Card",
     total: 1,
   },
   {
-    image: './custom-card-anya.svg',
-    name: 'Matte Black',
+    image: "./custom-card-anya.svg",
+    name: "Matte Black",
     price: 3000,
-    description: 'Standard Black Card',
+    description: "Standard Black Card",
     total: 1,
   },
   {
-    image: './custom-card-planet.svg',
-    name: 'Matte Black',
+    image: "./custom-card-planet.svg",
+    name: "Matte Black",
     price: 3000,
-    description: 'Standard Black Card',
+    description: "Standard Black Card",
     total: 1,
   },
 ] as const;
@@ -37,14 +38,19 @@ export default function CustomCardBanner() {
       <div
         style={{
           background: 'url("./custom-banner.svg")',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
         className="relative h-[400px] w-screen md:w-dvw"
       ></div>
       <div className="absolute top-32 w-[80%] md:top-12 ">
         <div className="relative">
-          <img src="./custom-card-banner.svg" alt="" />
+          <Image
+            src="./custom-card-banner.svg"
+            alt="Custom Card Banner"
+            height={1000}
+            width={1000}
+          />
           <p className="absolute bottom-2 left-4 text-sm font-bold text-white md:bottom-12 md:left-12 md:text-xl">
             Lorem Ipsum
           </p>

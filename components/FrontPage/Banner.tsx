@@ -1,12 +1,13 @@
-'use client'
-import useMediaQuery from '@/hooks/useMediaQuery';
-import BannerActions from './BannerActions';
-import MobileBanner from './responsiveDesign/MobileBanner';
-import PaymentLogos from './PaymentLogos';
+"use client";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import BannerActions from "./BannerActions";
+import MobileBanner from "./responsiveDesign/MobileBanner";
+import PaymentLogos from "./PaymentLogos";
+import Image from "next/image";
 
 export default function Banner() {
-  const isMobile = useMediaQuery('(min-width: 786px)');
-  
+  const isMobile = useMediaQuery("(min-width: 786px)");
+
   return (
     <section className=" container pb-20 lg:pb-36">
       {!isMobile ? (
@@ -22,15 +23,21 @@ export default function Banner() {
               Tap Up
               <span className="text-custom-black">Card</span>
             </p>
-            <img
+            <Image
               src="./3-cards.svg"
               alt="Card Stack"
               width={500}
+              height={500}
               className="-top-20 md:relative"
             />
           </div>
           <div className="relative flex flex-col justify-end">
-            <img src="./chrome-card.svg" alt="Chrome Card" width={450} />
+            <Image
+              src="./chrome-card.svg"
+              alt="Chrome Card"
+              width={450}
+              height={450}
+            />
             <p className="absolute font-bold text-custom-black lg:text-6xl">
               is here.
             </p>

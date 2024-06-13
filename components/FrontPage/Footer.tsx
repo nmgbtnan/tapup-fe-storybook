@@ -1,15 +1,17 @@
-import { FaFacebook, FaInstagram, FaXTwitter } from 'react-icons/fa6';
-import { FiSearch } from 'react-icons/fi';
+import Image from "next/image";
+import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FiSearch } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <footer className="mt-20 bg-custom-black p-8 text-custom-gray lg:rounded-tl-[300px] lg:rounded-tr-[300px]  xl:p-14">
+    <footer className="mt-32 bg-custom-black p-8 text-custom-gray lg:rounded-tl-[300px] lg:rounded-tr-[300px]  xl:p-14">
       <div className="container relative  flex flex-col items-center gap-8">
-        <img
+        <Image
           src="./footer-card.svg"
           alt="footer-card"
-          className="absolute hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-44"
+          className="absolute hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-28"
           width={300}
+          height={300}
         />
         <div className="flex flex-col space-y-2 text-center md:w-1/2 lg:w-[35%]">
           <h2 className=" font-bold tracking-tighter text-custom-gray lg:text-3xl xl:text-5xl">
@@ -22,7 +24,12 @@ export default function Footer() {
         </div>
         <div className="flex flex-col-reverse items-center gap-8 md:gap-16 lg:flex-row">
           <div className="flex items-center gap-2">
-            <img src="./footer-card.svg" alt="footer-card" width={50} />
+            <Image
+              src="./footer-card.svg"
+              alt="footer-card"
+              width={50}
+              height={50}
+            />
             <p className="flex items-center gap-2 font-bold">
               Tap
               <span className="text-custom-green">Up</span>
