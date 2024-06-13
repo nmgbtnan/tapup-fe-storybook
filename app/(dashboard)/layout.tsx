@@ -49,16 +49,6 @@ export default function RootLayout({
               </div>
               <MobileNavbar />
             </section>
-            <section className=" dashboard-container ">
-              <DesktopSidebar />
-              <div>
-                <DashboardNav />
-                <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
-                  <Suspense fallback={<Loader />}>{children}</Suspense>
-                </main>
-              </div>
-              <MobileNavbar />
-            </section>
           </IsAuth>
         </QueryProvider>
       </body>
