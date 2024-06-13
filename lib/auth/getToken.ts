@@ -3,7 +3,6 @@ import Axios from "../Axios";
 const getToken = async () => {
   try {
     const response = await Axios.get("/api/session");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error getting user:", error);
