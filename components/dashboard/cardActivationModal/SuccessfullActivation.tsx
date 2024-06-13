@@ -8,7 +8,7 @@ export default function SuccessfullActivation() {
 
   const handleButtonClick = () => {
     closeActivationCardModal();
-    router.push("/dashboard/profile/profile-builder");
+    router.push("/dashboard/profile/builder");
   };
 
   return (

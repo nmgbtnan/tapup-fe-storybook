@@ -150,7 +150,7 @@ export const menuLinks = [
   {
     label: "Activate Account",
     icon: <User size={18} />,
-    path: "/activate",
+    path: "",
   },
   {
     label: "Edit Profile",

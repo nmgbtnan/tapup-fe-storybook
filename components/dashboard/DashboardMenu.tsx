@@ -20,6 +20,7 @@ type UserData = {
 };
 
 export default function DashboardMenu() {
+  const{ openCardActivationModal } = useModalState()
   const router = useRouter();
   const { data: datas }: UseQueryResult<UserData, Error> = useQuery({
     queryKey: ["userdata"],
@@ -60,7 +61,13 @@ export default function DashboardMenu() {
             {el.icon}
             <Link
               className={` text-xs md:text-base ${el.label === "Activate Account" && "hover:text-white"}`}
-              href={el.path}>
+              href={el.path}
+              onClick={(e) => {
+                if (el.label === 'Activate Account') {
+                  openCardActivationModal();
+                }
+              }}
+              >
               {el.label}
             </Link>
             {el.label === "" && (
