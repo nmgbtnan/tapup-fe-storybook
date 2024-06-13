@@ -6,11 +6,15 @@ import DashboardActivity from '@/components/dashboard/DashboardActivity';
 import DashboardTaps from '@/components/dashboard/DashboardTaps';
 import GridCard from '@/components/Common/GridCard';
 import Link from 'next/link';
+import { useModalState } from '@/hooks/modalState';
+import StartActivationModal from '@/components/dashboard/cardActivationModal/StartActivationModal';
 
 export default function Overview() {
+  const{ isActivationCardModalOpen } = useModalState();
+
   return (
     <section className="p-2">
-      <span className="mb-2 ml-1 inline-block font-bold md:mb-4 md:text-2xl">
+      <span className={`mb-2 ml-1 relative inline-block font-bold md:mb-4 md:text-2xl ${isActivationCardModalOpen ? 'backdrop-blur-sm' : ''}`}>
         Dashboard
       </span>
       <div className="grid grid-cols-12 gap-4">
@@ -52,6 +56,11 @@ export default function Overview() {
           </span>
           <DashboardBarchart />
         </GridCard>
+        {isActivationCardModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <StartActivationModal />
+          </div>
+        )}
       </div>
     </section>
   );

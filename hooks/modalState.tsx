@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type ModalState = {
   isLoginModalOpen: boolean;
@@ -13,6 +13,10 @@ type ModalState = {
   closeVerifyCodeModal: () => void;
   openRegisterUserModal: () => void;
   closeRegisterUserModal: () => void;
+
+  isActivationCardModalOpen: boolean;
+  openCardActivationModal: () => void;
+  closeActivationCardModal: () => void;
 };
 
 export const useModalState = create<ModalState>((set) => ({
@@ -28,4 +32,10 @@ export const useModalState = create<ModalState>((set) => ({
   closeVerifyCodeModal: () => set({ isVerifyCodeModalOpen: false }),
   openRegisterUserModal: () => set({ isRegisterUserModalOpen: true }),
   closeRegisterUserModal: () => set({ isRegisterUserModalOpen: false }),
+
+  isActivationCardModalOpen: false,
+  openCardActivationModal: () => {
+    set({ isActivationCardModalOpen: true });
+  },
+  closeActivationCardModal: () => set({ isActivationCardModalOpen: false }),
 }));

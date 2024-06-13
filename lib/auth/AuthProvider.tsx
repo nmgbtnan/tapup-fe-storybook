@@ -13,5 +13,4 @@ const IsAuth = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
 
-
-export { IsAuth};
+export { IsAuth };

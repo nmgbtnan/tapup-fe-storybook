@@ -4,9 +4,10 @@ import { Input } from "../ui/input";
 import DashboardMenu from "./DashboardMenu";
 import { useState, useEffect, useRef } from "react";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import getToken from "@/lib/auth/getToken";
+
 import { capitalize } from "@/lib/capitalize";
 import { AvatarFallback, Avatar, AvatarImage } from "../ui/avatar";
+import getToken from "@/lib/auth/getToken";
 
 type UserData = {
   user: {
@@ -55,15 +56,16 @@ export default function DashboardNav() {
 
         <div className=" flex items-center gap-2 md:gap-4">
           <span className="text-center text-xs font-bold md:text-start md:text-sm">
-            Hi, {capitalize(datas?.user.name.split(' ')[0] || '')}
+            Hi, {capitalize(datas?.user.name.split(" ")[0] || "")}
           </span>
           <div
             className="relative flex cursor-pointer items-center gap-2"
-            onClick={handleMenu}
-          >
+            onClick={handleMenu}>
             <Avatar className="border">
               <AvatarImage src={`${datas?.user.avatarUrl}`} />
-              <AvatarFallback>{capitalize(datas?.user.name.slice(0, 1) || '')}</AvatarFallback>
+              <AvatarFallback>
+                {capitalize(datas?.user.name.slice(0, 1) || "")}
+              </AvatarFallback>
             </Avatar>
             {/* <img
               src={`${datas?.user.avatarUrl}`}
@@ -76,8 +78,7 @@ export default function DashboardNav() {
           </div>
         </div>
         <div
-          className={`absolute right-0 top-16 w-[270px] space-y-4 rounded-md bg-white p-4 pb-6 shadow-2xl duration-300 ${isOpen ? "invisible opacity-0" : "visible opacity-100"}`}
-        >
+          className={`absolute right-0 top-16 w-[270px] space-y-4 rounded-md bg-white p-4 pb-6 shadow-2xl duration-300 ${isOpen ? "invisible opacity-0" : "visible opacity-100"}`}>
           <DashboardMenu />
         </div>
       </nav>

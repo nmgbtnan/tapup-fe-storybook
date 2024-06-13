@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { 
+import {
   inter,
   roboto_condensed,
   racing_sans_one,
@@ -12,7 +12,7 @@ import {
   bebas_neue,
   lato,
   kaushan_script,
-  comic_neue,  
+  comic_neue,
 } from "@/lib/fonts";
 import "../globals.css";
 import DesktopSidebar from "@/components/dashboard/DesktopSidebar";
@@ -22,7 +22,6 @@ import MobileNavbar from "@/components/dashboard/MobileNavbar";
 import Loader from "@/components/Common/Loader";
 import QueryProvider from "@/lib/QueryProvider";
 import { IsAuth } from "@/lib/auth/AuthProvider";
-
 
 export const metadata: Metadata = {
   title: "TapUp | Dashboard",
@@ -36,9 +35,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <body className={`${inter.className} ${roboto_condensed.variable} ${racing_sans_one.variable} ${league_spartan.variable} ${roboto_mono.variable} ${montserrat.variable} ${open_sans.variable} ${raleway.variable} ${bebas_neue.variable} ${lato.variable} ${kaushan_script.variable} ${comic_neue.variable}`}>
+      <body
+        className={`${inter.className} ${roboto_condensed.variable} ${racing_sans_one.variable} ${league_spartan.variable} ${roboto_mono.variable} ${montserrat.variable} ${open_sans.variable} ${raleway.variable} ${bebas_neue.variable} ${lato.variable} ${kaushan_script.variable} ${comic_neue.variable}`}>
         <QueryProvider>
           <IsAuth>
+            <section className=" dashboard-container ">
+              <DesktopSidebar />
+              <div>
+                <DashboardNav />
+                <main className=" min-h-screen bg-custom-gray md:ml-[50px] md:p-4 lg:ml-[265px]">
+                  <Suspense fallback={<Loader />}>{children}</Suspense>
+                </main>
+              </div>
+              <MobileNavbar />
+            </section>
             <section className=" dashboard-container ">
               <DesktopSidebar />
               <div>

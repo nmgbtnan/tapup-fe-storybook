@@ -1,6 +1,7 @@
 "use client";
 
-import getToken from "@/lib/auth/getToken";
+import { useModalState } from "@/hooks/modalState";
+
 import Axios from "@/lib/Axios";
 import { menuLinks } from "@/lib/dashboardGrid";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { capitalize } from "@/lib/capitalize";
+import getToken from "@/lib/auth/getToken";
 
 type UserData = {
   user: {
@@ -35,10 +37,11 @@ export default function DashboardMenu() {
   return (
     <>
       <div className=" flex items-center gap-2 border-b-2 border-gray-500">
-        <Avatar className="border">
-          <AvatarImage src={`${datas?.user.avatarUrl}`} />
-          <AvatarFallback>{capitalize(datas?.user.name.slice(0, 1) || '')}</AvatarFallback>
-        </Avatar>
+        <img
+          src={`${datas?.user.avatarUrl}`}
+          alt="profile-picture"
+          className="mb-1 w-8 border rounded-full"
+        />
         <div className=" flex flex-col">
           <span className="text-xs font-bold md:text-sm">
             {datas?.user.name}
@@ -53,13 +56,11 @@ export default function DashboardMenu() {
         {menuLinks.map((el, i) => (
           <li
             key={i}
-            className={`flex items-center gap-2 px-2 ${i === 4 && "mt-6"} ${el.label === "Activate Account" && "rounded-md bg-custom-green/90 py-3 text-white  "}`}
-          >
+            className={`flex items-center gap-2 px-2 ${i === 4 && "mt-6"} ${el.label === "Activate Account" && "rounded-md bg-custom-green/90 py-3 text-white  "}`}>
             {el.icon}
             <Link
               className={` text-xs md:text-base ${el.label === "Activate Account" && "hover:text-white"}`}
-              href={el.path}
-            >
+              href={el.path}>
               {el.label}
             </Link>
             {el.label === "" && (
