@@ -19,6 +19,8 @@ import { useBuilderProfile } from "@/hooks/useBuilderProfile"
 import { useMenuState } from "@/hooks/useMenuState"
 
 const formSchema = z.object({
+  cover: z.string(),
+  photo: z.string(),
   name: z.string(),
   position: z.string(),
   bio: z.string().min(10),
@@ -27,27 +29,77 @@ const formSchema = z.object({
 const ProfileForm = () =>{
   const {activeForm} = useMenuState((state) => state)
   const {name, position, bio} = useBuilderProfile((state) => state)
-  const {changeName, changePosition, changeBio} = useBuilderProfile((state) => state)
+  const {changeName, changePosition, changeBio, changeProfilePhoto, changeCoverPhoto} = useBuilderProfile((state) => state)
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      cover: '',
+      photo: '',
       name: name,
       position: position,
       bio: bio,
     },
   })
-
+  
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(data)
+  }
+
+  const handleCoverChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputElement = e.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      changeCoverPhoto(URL.createObjectURL(inputElement.files[0]));
+    }
+  }
+  
+  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputElement = e.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      changeProfilePhoto(URL.createObjectURL(inputElement.files[0]));
+    }
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} 
         className={`space-y-3 ${activeForm === 'profile' ? 'block' : 'hidden'}`}
       >
+        <FormField
+          control={form.control}
+          name="cover"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cover Photo</FormLabel>
+              <FormControl>
+                <Input  {...field} 
+                  type="file"
+                  accept="image/*"
+                  onChangeCapture={(e)=>handleCoverChange(e)}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="photo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Profile Photo</FormLabel>
+              <FormControl>
+                <Input  {...field} 
+                  type="file"
+                  accept="image/*"
+                  onChangeCapture={(e)=>handleImageChange(e)}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="name"
