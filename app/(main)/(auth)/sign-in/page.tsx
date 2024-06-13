@@ -1,10 +1,8 @@
-import SigninForm from '@/components/auth/SigninForm'
-import React from 'react'
+import SigninForm from "@/components/auth/SigninForm";
+import React from "react";
 
 const SigninPage = () => {
-  return (
-    <SigninForm />
-  )
-}
+  return <SigninForm />;
+};
 
-export default SigninPage
+export default SigninPage;
