@@ -1,7 +1,5 @@
 'use client'
 import { SocialLists } from '@/lib/SOCIAL_ICONS'
-
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -22,8 +20,6 @@ const SocialList = () => {
   const {activeForm} = useMenuState((state) => state)
   const [selectedSocial, setSelectedSocial] = useState<Social>(SocialLists[0])
   const {socials} = useBuilderSocial((state) => state) 
-
-  console.log('socials', socials);
   
   return (
     <section className={`${activeForm === 'socials' ? 'block' : 'hidden'} mt-6`}>
