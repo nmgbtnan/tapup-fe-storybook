@@ -13,7 +13,7 @@ import { useBuilderFont } from '@/hooks/useBuilderFont'
 import { useBuilderSocial } from '@/hooks/useBuilderSocial'
 import Link from 'next/link'
 const Preview = () => {
-  const {name, position, bio} = useBuilderProfile((state) => state)
+  const {name, position, bio, profilePhoto, coverPhoto} = useBuilderProfile((state) => state)
   const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
   const {nameFontFamily, fontFamily, nameSize, infoSize} = useBuilderFont((state) => state)
   const {socials} = useBuilderSocial((state) => state)
@@ -31,13 +31,18 @@ const Preview = () => {
             style={{backgroundColor: bgColor}}
           >
             {/* Cover photo */}
-            <div className="bg-gray-300 w-full h-28 rounded-t-md">
-
+            <div className=" w-full h-28 relative">
+              <Image
+                fill
+                alt=''
+                src={coverPhoto ? coverPhoto : '/defaultCover.webp'}
+                className='rounded-t-lg'
+              />
             </div>
             {/* Avatar */}
             <div className="flex justify-center relative">
               <Avatar className='absolute top-[-40px] h-20 w-20 border-[3px] border-white '>
-                <AvatarImage src="https://i.pinimg.com/originals/ef/0d/ec/ef0dec7cb8b80b65ae925ccb9286f567.jpg" alt="@shadcn" />
+                <AvatarImage src={profilePhoto} alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
