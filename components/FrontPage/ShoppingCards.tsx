@@ -88,7 +88,13 @@ function ShoppingCard({
     <div className="mt-14 space-y-12">
       <p className="text-center text-lg font-bold">{name}</p>
       <div>
-        <Image src={image} width={300} height={300} alt="Tapup-Card" />
+        <Image
+          src={image}
+          width={300}
+          height={300}
+          className="h-auto w-auto"
+          alt="Tapup-Card"
+        />
       </div>
       <div className="flex flex-col items-center gap-2">
         <div className="flex w-[200px] flex-row items-center justify-between font-[600]">
