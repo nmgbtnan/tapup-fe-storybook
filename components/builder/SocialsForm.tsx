@@ -111,14 +111,24 @@ const SocialsForm = ({selectedSocial} : Props ) => {
         </div>
         <div className="flex justify-end gap-3 mt-5">
           <DialogClose asChild>
+            {social ? 
             <Button 
               variant="destructive"
               type="button"
               onClick={() => removeSocial(selectedSocial.type)}
-            >Remove</Button>            
+            >Remove</Button>         
+            :
+            <Button 
+              variant="secondary"
+              type="button"
+            >Close</Button>    
+            }        
           </DialogClose>
           <DialogClose asChild>
-            <Button type="submit">Save Changes</Button>
+            <Button 
+              type="submit"
+              disabled={!form.formState.isValid}
+            >Save Changes</Button>
           </DialogClose>
         </div>
       </form>
