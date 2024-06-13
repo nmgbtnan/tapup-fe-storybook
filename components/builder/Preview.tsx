@@ -12,13 +12,14 @@ import { useBuilderColor } from '@/hooks/useBuilderColor'
 import { useBuilderFont } from '@/hooks/useBuilderFont'
 import { useBuilderSocial } from '@/hooks/useBuilderSocial'
 import Link from 'next/link'
+import { capitalize } from '@/lib/capitalize'
 const Preview = () => {
   const {name, position, bio, profilePhoto, coverPhoto} = useBuilderProfile((state) => state)
   const {nameColor, fontColor, bgColor} = useBuilderColor((state) => state)
   const {nameFontFamily, fontFamily, nameSize, infoSize} = useBuilderFont((state) => state)
   const {socials} = useBuilderSocial((state) => state)
   return (
-    <div className='w-full flex flex-col justify-start items-center'>
+    <div className='w-full flex flex-col justify-start items-center mt-10'>
       <div className='relative'>
         <Image
           width={300}
@@ -53,7 +54,7 @@ const Preview = () => {
               <h4
                 style={{color: nameColor, fontSize: nameSize}}
                 className={nameFontFamily}
-              >{name}</h4>
+              >{capitalize(name) || ''}</h4>
               <div
                 style={{color: fontColor, fontSize: infoSize}}
                 className={`${fontFamily} px-3`}
