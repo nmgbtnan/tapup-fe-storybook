@@ -9,7 +9,7 @@ export default function Footer() {
         <Image
           src="./footer-card.svg"
           alt="footer-card"
-          className="absolute w-auto hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-28"
+          className="absolute h-auto hidden md:-left-24 md:-top-32 lg:-top-28 lg:left-10 lg:block xl:-top-40 xl:left-28"
           width={300}
           height={300}
         />
@@ -27,9 +27,9 @@ export default function Footer() {
             <Image
               src="./footer-card.svg"
               alt="footer-card"
-              width={50}
-              height={50}
-              className="w-auto"
+              width={100}
+              height={100}
+              className="h-auto w-28"
             />
             <p className="flex items-center gap-2 font-bold">
               Tap
@@ -54,8 +54,9 @@ export default function Footer() {
               <input
                 type="text"
                 placeholder="Search..."
-                className=" w-full bg-transparent px-6 py-3 text-[#d9d9d9] outline-none"
+                className="w-full bg-transparent px-6 py-3 text-[#d9d9d9] rounded-full border-none focus:outline-none focus:ring-0"
               />
+
               <FiSearch className="  stroke-[#d9d9d9] text-2xl" />
             </div>
             <p className="font-bold">Lorem Ipsum</p>
