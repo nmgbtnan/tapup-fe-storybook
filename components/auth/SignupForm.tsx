@@ -18,6 +18,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import Axios from "@/lib/Axios";
+import { toast, Toaster } from "sonner";
+import Image from "next/image";
 
 export default function SignupForm() {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -29,7 +31,7 @@ export default function SignupForm() {
       email: "",
       password: "",
       confirmPassword: "",
-      privacyPolicy: false,
+      privacyPolicy: true,
     },
   });
 
@@ -45,9 +47,11 @@ export default function SignupForm() {
     try {
       await Axios.post("/auth/register", formData);
       reset();
-    } catch (error) {
+      toast.success("Success! You're registered. Welcome aboard!");
+    } catch (err: any) {
       // Handle error (optional)
-      console.error("Error registering:", error);
+      toast.error(err.response.data);
+      console.error("Error registering:", err);
     }
   };
 
@@ -59,6 +63,7 @@ export default function SignupForm() {
   return (
     <>
       <Form {...form}>
+        <Toaster richColors position="top-right" />
         <form
           noValidate
           onSubmit={form.handleSubmit(onSubmit)}
@@ -78,7 +83,9 @@ export default function SignupForm() {
               href=""
               className="flex items-center justify-center gap-2 bg-gray-100 py-3 text-custom-black hover:bg-gray-200 hover:text-custom-black  "
             >
-              <img src="./devicon_google.svg" alt="googleIcon" width={20} />
+              <div className="relative w-5 aspect-square">
+                <Image src="./devicon_google.svg" alt="googleIcon" fill />
+              </div>
               <p className="text-sm md:text-base">Sign Up with Google</p>
             </Link>
           </div>
