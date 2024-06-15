@@ -1,9 +1,9 @@
-import React, { useState, useRef, Dispatch, SetStateAction } from 'react';
-import { Slider } from '@/components/ui/slider';
-import { createPortal } from 'react-dom';
-import { Input } from '@/components/ui/input';
-import { FaPlus, FaMinus } from 'react-icons/fa6';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useState, useRef, Dispatch, SetStateAction } from "react";
+import { Slider } from "@/components/ui/slider";
+import { createPortal } from "react-dom";
+import { Input } from "@/components/ui/input";
+import { FaPlus, FaMinus } from "react-icons/fa6";
+import { AnimatePresence, motion } from "framer-motion";
 
 import ReactCrop, {
   centerCrop,
@@ -11,12 +11,13 @@ import ReactCrop, {
   Crop,
   PixelCrop,
   //   convertToPixelCrop,
-} from 'react-image-crop';
-import { canvasPreview } from '@/lib/canvasPreview';
-import { useDebounceEffect } from '@/hooks/useDebounceEffect';
+} from "react-image-crop";
+import { canvasPreview } from "@/lib/canvasPreview";
+import { useDebounceEffect } from "@/hooks/useDebounceEffect";
 
-import 'react-image-crop/dist/ReactCrop.css';
-import { Button } from '@/components/ui/button';
+import "react-image-crop/dist/ReactCrop.css";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -28,7 +29,7 @@ function centerAspectCrop(
   return centerCrop(
     makeAspectCrop(
       {
-        unit: '%',
+        unit: "%",
         width: 90,
       },
       aspect,
@@ -55,11 +56,11 @@ export default function Cropper({
   maxHeight,
   circularCrop = false,
 }: CropperProps) {
-  const [imgSrc, setImgSrc] = useState('');
+  const [imgSrc, setImgSrc] = useState("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
-  const blobUrlRef = useRef('');
+  const blobUrlRef = useRef("");
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [scale, setScale] = useState(1);
@@ -76,8 +77,8 @@ export default function Cropper({
       setFileName(e.target.files[0].name);
       //   toggleModal()
       const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        setImgSrc(reader.result?.toString() || '');
+      reader.addEventListener("load", () => {
+        setImgSrc(reader.result?.toString() || "");
       });
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -94,7 +95,7 @@ export default function Cropper({
     const image = imgRef.current;
     const previewCanvas = previewCanvasRef.current;
     if (!image || !previewCanvas || !completedCrop) {
-      throw new Error('Crop canvas does not exist');
+      throw new Error("Crop canvas does not exist");
     }
 
     // This will size relative to the uploaded image
@@ -107,9 +108,9 @@ export default function Cropper({
       completedCrop.width * scaleX,
       completedCrop.height * scaleY
     );
-    const ctx = offscreen.getContext('2d');
+    const ctx = offscreen.getContext("2d");
     if (!ctx) {
-      throw new Error('No 2d context');
+      throw new Error("No 2d context");
     }
 
     ctx.drawImage(
@@ -126,12 +127,12 @@ export default function Cropper({
     // You might want { type: "image/jpeg", quality: <0 to 1> } to
     // reduce image size
     const blob = await offscreen.convertToBlob({
-      type: 'image/png',
+      type: "image/png",
     });
     const reader = new FileReader();
     reader.onload = (event) => {
       const fileAsDataURL = event.target?.result;
-      if (typeof fileAsDataURL === 'string') {
+      if (typeof fileAsDataURL === "string") {
         // You can use fileAsDataURL as needed
         console.log({ fileAsDataURL });
         changeImage(fileAsDataURL);
@@ -238,7 +239,7 @@ export default function Cropper({
                     </div>
                     <div className="w-full flex flex-row gap-6 justify-center items-center">
                       <Button
-                        variant={'outline'}
+                        variant={"outline"}
                         type="button"
                         onClick={toggleModal}
                         className="w-20"
@@ -273,7 +274,7 @@ export default function Cropper({
                         maxHeight={maxHeight}
                         circularCrop={circularCrop}
                       >
-                        <img
+                        <Image
                           ref={imgRef}
                           alt="Crop me"
                           src={imgSrc}
@@ -290,8 +291,8 @@ export default function Cropper({
                           className="shadow-md hidden"
                           ref={previewCanvasRef}
                           style={{
-                            border: '1px dashed black',
-                            objectFit: 'contain',
+                            border: "1px dashed black",
+                            objectFit: "contain",
                             width: completedCrop.width,
                             height: completedCrop.height,
                           }}
@@ -307,9 +308,9 @@ export default function Cropper({
                           ref={hiddenAnchorRef}
                           download
                           style={{
-                            position: 'absolute',
-                            top: '-200vh',
-                            visibility: 'hidden',
+                            position: "absolute",
+                            top: "-200vh",
+                            visibility: "hidden",
                           }}
                         >
                           Hidden download

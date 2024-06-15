@@ -1,8 +1,9 @@
-'use client'
-import './customCardStyles.css';
-import { useCustomCard } from '@/hooks/useCustomCard';
-import { SocialLists } from '@/lib/SOCIAL_ICONS';
-import { cn } from '@/lib/utils';
+"use client";
+import "./customCardStyles.css";
+import { useCustomCard } from "@/hooks/useCustomCard";
+import { SocialLists } from "@/lib/SOCIAL_ICONS";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function CustomisableCard({
   className,
@@ -33,7 +34,7 @@ export default function CustomisableCard({
     >
       {/* cover */}
       <div className={`c-cover bg-gray-200 flex-grow`}>
-        {coverURL && <img src={coverURL} width={'100%'} height={'100%'} />}
+        {coverURL && <Image src={coverURL} fill alt="Cover Image" />}
       </div>
       {/* details */}
       <div
@@ -45,9 +46,7 @@ export default function CustomisableCard({
           {/* profile pic */}
           <div className="c-profile absolute -translate-y-1/2 h-[150px] aspect-square border-4 border-white bg-blue-300 rounded-full overflow-hidden">
             {/* <div className={` w-full h-full ${profile}`} style={profileURL? {background: `url("${profileURL}")`, backgroundSize:'cover'}: {}}></div> */}
-            {profileURL && (
-              <img src={profileURL} width={'100%'} height={'100%'} />
-            )}
+            {profileURL && <Image src={profileURL} fill alt="Profile image" />}
           </div>
           <div className="pt-[75px]">
             {/* infos */}
