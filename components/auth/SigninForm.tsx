@@ -72,21 +72,6 @@ export default function SigninForm() {
               credit card required.
             </p>
             <div className="flex flex-col gap-4">
-              {/* <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Button variant={'outline'}>
-                        <img src="./google-icon.svg" alt="googleIcon" width={20} /> &nbsp;Login with Google
-                      </Button>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
-
               <Button
                 variant={"outline"}
                 type="button"
