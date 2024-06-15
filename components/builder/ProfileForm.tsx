@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
 import { useBuilderProfile } from "@/hooks/useBuilderProfile"
 import { useMenuState } from "@/hooks/useMenuState"
+import { getCardProfile, updateCardProfile } from "@/lib/localStorage"
 
 const formSchema = z.object({
   cover: z.string(),
@@ -28,7 +29,7 @@ const formSchema = z.object({
 
 const ProfileForm = () =>{
   const {activeForm} = useMenuState((state) => state)
-  const {name, position, bio} = useBuilderProfile((state) => state)
+  const {name, position, bio, profilePhoto, coverPhoto} = useBuilderProfile((state) => state)
   const {changeName, changePosition, changeBio, changeProfilePhoto, changeCoverPhoto} = useBuilderProfile((state) => state)
   
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,9 +44,20 @@ const ProfileForm = () =>{
   })
   
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(data)
+    const storageData = getCardProfile('card');
+    // console.log(data);
+    const saveData = {
+      name,
+      position,
+      bio,
+      coverPhoto,
+      profilePhoto
+    }
+    if(storageData) {
+      storageData.profile = saveData
+      storageData.hasData = true
+      updateCardProfile('card', storageData)
+    }
   }
 
   const handleCoverChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -108,8 +120,7 @@ const ProfileForm = () =>{
               <FormLabel>Display Name</FormLabel>
               <FormControl>
                 <Input  {...field} 
-                  value={name}
-                  onChange={(e)=>changeName(e.target.value)}
+                  onChangeCapture={(e: React.ChangeEvent<HTMLInputElement>)=>changeName(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
@@ -124,8 +135,7 @@ const ProfileForm = () =>{
               <FormLabel>Position / Business Industry</FormLabel>
               <FormControl>
                 <Input  {...field} 
-                  value={position}
-                  onChange={(e)=>changePosition(e.target.value)}
+                  onChangeCapture={(e: React.ChangeEvent<HTMLInputElement>)=>changePosition(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
@@ -134,14 +144,13 @@ const ProfileForm = () =>{
         /> 
         <FormField
           control={form.control}
-          name="position"
+          name="bio"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea placeholder="Short description..." {...field} 
-                  value={bio}
-                  onChange={(e)=>changeBio(e.target.value)}
+                  onChangeCapture={(e: React.ChangeEvent<HTMLTextAreaElement>)=>changeBio(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
