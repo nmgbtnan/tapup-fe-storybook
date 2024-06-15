@@ -10,7 +10,7 @@ export const cards = [
     calendar: <Calendar className="w-4 md:w-6" />,
     count: "2,000",
     badge: (
-      <Badge className="flex justify-center bg-custom-badge-greenbg p-1.5 text-[10px] text-green-700 hover:bg-green-300 sm:text-xs">
+      <Badge className="flex justify-center bg-custom-badge-greenbg py-1.5 md:text-sm text-green-700 hover:bg-green-300 text-xs">
         + 10% last month
       </Badge>
     ),
@@ -22,7 +22,7 @@ export const cards = [
     calendar: <Calendar className="w-4 md:w-6" />,
     count: "2,255",
     badge: (
-      <Badge className="flex justify-center bg-custom-badge-redbg p-1.5 text-[10px] text-red-500 hover:bg-red-300 sm:text-xs">
+      <Badge className="flex justify-center bg-red-200 py-1.5 md:text-sm text-red-500 hover:bg-red-300 sm:text-xs">
         + 10% last month
       </Badge>
     ),
