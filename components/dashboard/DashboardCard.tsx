@@ -1,12 +1,13 @@
-import { cards } from '@/lib/dashboardGrid';
-import { Button } from '@/components/ui/button';
-import GridCard from '@/components/Common/GridCard';
+import { cards } from "@/lib/dashboardGrid";
+import { Button } from "@/components/ui/button";
+import GridCard from "@/components/Common/GridCard";
+import Image from "next/image";
 
 export default function DashboardCard() {
   return (
     <>
       <GridCard className="col-span-12 flex gap-4 p-4 sm:max-md:col-span-6 md:col-span-6 xl:col-span-8">
-        <div className="flex flex-col space-y-4 md:items-start ">
+        <div className="flex flex-col space-y-4 md:items-start xl:w-[495px] ">
           <span className="text-sm font-bold text-custom-green md:text-base">
             Congratulations Highlands Bali! 🎉
           </span>
@@ -18,11 +19,14 @@ export default function DashboardCard() {
             View Badge
           </Button>
         </div>
-        <img
-          src="../dashboard-image.svg"
-          alt="Dashboard Image"
-          className="hidden xl:block"
-        />
+        <div className="relative aspect-auto xl:w-[230px]">
+          <Image
+            src="../dashboard-image.svg"
+            alt="Dashboard Image"
+            fill
+            className="object-fill hidden xl:block"
+          />
+        </div>
       </GridCard>
 
       {cards.map((el) => (
