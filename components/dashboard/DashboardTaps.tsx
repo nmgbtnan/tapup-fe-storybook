@@ -1,4 +1,5 @@
-import { recentTaps } from '@/lib/dashboardGrid';
+import { recentTaps } from "@/lib/dashboardGrid";
+import Image from "next/image";
 
 export default function DashboardTaps() {
   return (
@@ -9,11 +10,13 @@ export default function DashboardTaps() {
           className="flex flex-wrap gap-2 px-4 md:max-lg:justify-between lg:justify-between"
         >
           <div className="flex gap-2">
-            <img
-              src={el.profile}
-              alt="User Profile"
-              className="w-6 md:w-8 xl:w-10"
-            />
+            <div className="relative">
+              <Image
+                src={el.profile}
+                alt="User Profile"
+                className="w-6 md:w-8 xl:w-10"
+              />
+            </div>
             <div className="flex flex-col">
               <p className="text-xs font-bold xl:text-sm">{el.name}</p>
               <p className="text-xs text-custom-textGray xl:text-sm">
