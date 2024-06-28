@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, expect } from '@storybook/test';
+import { withMaxWidth } from '../../.storybook/decorators';
 
 import { Page } from './Page';
 
@@ -10,6 +11,7 @@ const meta = {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
+  decorators: [withMaxWidth],
 } satisfies Meta<typeof Page>;
 
 export default meta;
@@ -30,3 +32,5 @@ export const LoggedIn: Story = {
     await expect(logoutButton).toBeInTheDocument();
   },
 };
+
+// export const Decorators = [withMaxWidth]; //this will activate the global decorated located on the decorators.tsx
