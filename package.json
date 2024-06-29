@@ -9,7 +9,7 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "prebuild": "npm install",
-    "build-storybook": "build-storybook -o storybook-static"
+    "build-storybook": "storybook build -o storybook-static"
   },
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.1",
