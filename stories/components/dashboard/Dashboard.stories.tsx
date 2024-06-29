@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Dashboard from "@/app/(dashboard)/dashboard/page";
 
 const meta = {
-  title: "UI/Dashboard",
+  title: "Components/Dashboard",
   component: Dashboard,
   tags: ['autodocs'],
   parameters: {
