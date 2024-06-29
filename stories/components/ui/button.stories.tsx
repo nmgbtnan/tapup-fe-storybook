@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { action } from "@storybook/addon-actions";
-import { Button } from "@/components/ui/kit/button";
+import { Button } from "@/components/ui/button";
 
 const meta = {
-  title: "ui/kit/button",
+  title: "Components/button",
   component: Button,
   tags: ['autodocs'],
   parameters: {
