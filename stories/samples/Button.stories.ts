@@ -29,6 +29,11 @@ export const Primary: Story = {
     primary: true,
     label: 'Button',
   },
+  parameters: {   //this is causing the default background to be dark
+    backgrounds: {
+      default: 'dark',
+    }
+  }
 };
 
 export const Secondary: Story = {
